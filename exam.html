@@ -397,13 +397,12 @@
         const examConfig = JSON.parse(localStorage.getItem('examConfig'));
         
         if (!examConfig) {
-            alert('No exam configuration found!');
             window.location.href = 'select-course.html';
         }
 
         document.getElementById('studentName').textContent = username;
 
-        // COMPLETE QUESTION BANK
+        // COMPLETE QUESTION BANK (Same as before)
         const questionBank = {
             "English": [
                 // COMPREHENSION PASSAGE 1
@@ -620,6 +619,56 @@
                     question: "What does the prefix 'anti-' mean?",
                     options: ["For", "Against", "Before", "After"],
                     answer: 1
+                },
+                {
+                    question: "The sentence 'She sells sea shells' is an example of:",
+                    options: ["Metaphor", "Alliteration", "Simile", "Personification"],
+                    answer: 1
+                },
+                {
+                    question: "A group of words without a subject or predicate is called:",
+                    options: ["Clause", "Phrase", "Sentence", "Paragraph"],
+                    answer: 1
+                },
+                {
+                    question: "The word 'run' in 'run a business' is used as:",
+                    options: ["Literal meaning", "Figurative meaning", "Slang", "Idiom"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the correct form: She _____ to the market every day.",
+                    options: ["go", "goes", "going", "gone"],
+                    answer: 1
+                },
+                {
+                    question: "An oxymoron is:",
+                    options: ["Two opposite words together", "Exaggeration", "Comparison", "Repetition"],
+                    answer: 0
+                },
+                {
+                    question: "The study of word origins is called:",
+                    options: ["Etymology", "Entomology", "Morphology", "Phonology"],
+                    answer: 0
+                },
+                {
+                    question: "Which is a compound word?",
+                    options: ["Beautiful", "Classroom", "Running", "Quickly"],
+                    answer: 1
+                },
+                {
+                    question: "The passive voice of 'She writes a letter' is:",
+                    options: ["A letter writes her", "A letter is written by her", "A letter was written by her", "She is writing a letter"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the synonym for 'ancient':",
+                    options: ["Modern", "New", "Old", "Recent"],
+                    answer: 2
+                },
+                {
+                    question: "A person who writes plays is called a:",
+                    options: ["Novelist", "Playwright", "Poet", "Author"],
+                    answer: 1
                 }
             ],
 
@@ -773,6 +822,56 @@
                     question: "The interior angle of a regular hexagon is:",
                     options: ["60°", "90°", "120°", "180°"],
                     answer: 2
+                },
+                {
+                    question: "Solve for x: x/4 = 5",
+                    options: ["1.25", "9", "20", "25"],
+                    answer: 2
+                },
+                {
+                    question: "What is 3⁴?",
+                    options: ["12", "27", "64", "81"],
+                    answer: 3
+                },
+                {
+                    question: "The area of a circle with radius 7cm is (π = 22/7):",
+                    options: ["44 cm²", "154 cm²", "308 cm²", "616 cm²"],
+                    answer: 1
+                },
+                {
+                    question: "Simplify: 5x + 3x - 2x",
+                    options: ["6x", "8x", "10x", "x"],
+                    answer: 0
+                },
+                {
+                    question: "What is 1/4 + 1/2?",
+                    options: ["2/6", "3/4", "1/6", "5/8"],
+                    answer: 1
+                },
+                {
+                    question: "The mode of 2, 3, 3, 5, 7, 3, 9 is:",
+                    options: ["2", "3", "5", "7"],
+                    answer: 1
+                },
+                {
+                    question: "If 2ˣ = 16, what is x?",
+                    options: ["2", "3", "4", "8"],
+                    answer: 2
+                },
+                {
+                    question: "What is 20% of 500?",
+                    options: ["50", "100", "150", "200"],
+                    answer: 1
+                },
+                {
+                    question: "The sum of the first 10 natural numbers is:",
+                    options: ["45", "50", "55", "100"],
+                    answer: 2
+                },
+                {
+                    question: "Factorize: x² - 9",
+                    options: ["(x-3)(x-3)", "(x+3)(x+3)", "(x-3)(x+3)", "x(x-9)"],
+                    answer: 2
                 }
             ],
 
@@ -876,6 +975,106 @@
                     question: "Isotopes of an element have the same number of:",
                     options: ["Neutrons", "Protons", "Electrons and neutrons", "Mass numbers"],
                     answer: 1
+                },
+                {
+                    question: "The common name for calcium carbonate is:",
+                    options: ["Limestone", "Marble", "Chalk", "All of the above"],
+                    answer: 3
+                },
+                {
+                    question: "Which of these is an alkali metal?",
+                    options: ["Iron", "Sodium", "Zinc", "Copper"],
+                    answer: 1
+                },
+                {
+                    question: "The formula for sulfuric acid is:",
+                    options: ["H2SO3", "H2SO4", "HSO4", "H3SO4"],
+                    answer: 1
+                },
+                {
+                    question: "Oxidation is:",
+                    options: ["Loss of electrons", "Gain of electrons", "Loss of protons", "Gain of protons"],
+                    answer: 0
+                },
+                {
+                    question: "The gas that supports combustion is:",
+                    options: ["Nitrogen", "Carbon dioxide", "Oxygen", "Hydrogen"],
+                    answer: 2
+                },
+                {
+                    question: "Water is an example of:",
+                    options: ["Element", "Compound", "Mixture", "Solution"],
+                    answer: 1
+                },
+                {
+                    question: "The most electronegative element is:",
+                    options: ["Oxygen", "Chlorine", "Fluorine", "Nitrogen"],
+                    answer: 2
+                },
+                {
+                    question: "An atom that gains electrons becomes:",
+                    options: ["Positive ion", "Negative ion", "Neutral", "Isotope"],
+                    answer: 1
+                },
+                {
+                    question: "The atomic number represents the number of:",
+                    options: ["Neutrons", "Protons", "Electrons", "Both B and C"],
+                    answer: 3
+                },
+                {
+                    question: "Which metal is liquid at room temperature?",
+                    options: ["Iron", "Mercury", "Copper", "Aluminum"],
+                    answer: 1
+                },
+                {
+                    question: "The process of separating salt from seawater is:",
+                    options: ["Filtration", "Distillation", "Decantation", "Crystallization"],
+                    answer: 1
+                },
+                {
+                    question: "Carbon dioxide turns limewater:",
+                    options: ["Red", "Blue", "Milky", "Green"],
+                    answer: 2
+                },
+                {
+                    question: "The pH of an acidic solution is:",
+                    options: ["Less than 7", "Equal to 7", "Greater than 7", "Equal to 14"],
+                    answer: 0
+                },
+                {
+                    question: "Alloys are mixtures of:",
+                    options: ["Metals only", "Non-metals only", "Metals and non-metals", "Gases"],
+                    answer: 2
+                },
+                {
+                    question: "The valency of nitrogen is:",
+                    options: ["2", "3", "4", "5"],
+                    answer: 1
+                },
+                {
+                    question: "Rust is:",
+                    options: ["Iron oxide", "Iron sulfate", "Iron chloride", "Iron carbonate"],
+                    answer: 0
+                },
+                {
+                    question: "A substance that speeds up a reaction without being consumed is:",
+                    options: ["Reactant", "Product", "Catalyst", "Inhibitor"],
+                    answer: 2
+                },
+                {
+                    question: "The formula for ammonia is:",
+                    options: ["NH2", "NH3", "NH4", "N2H"],
+                    answer: 1
+                },
+                {
+                    question: "Electrolysis is the decomposition of a substance using:",
+                    options: ["Heat", "Light", "Electricity", "Pressure"],
+                    answer: 2
+                },
+                {
+                    question: "The atomic mass of an element is the sum of:",
+                    options: ["Protons only", "Neutrons only", "Protons and neutrons", "Electrons and protons"],
+                    answer: 2
                 }
             ],
 
@@ -979,6 +1178,106 @@
                     question: "Which hormone regulates blood sugar?",
                     options: ["Thyroxine", "Insulin", "Adrenaline", "Testosterone"],
                     answer: 1
+                },
+                {
+                    question: "The scientific name for humans is:",
+                    options: ["Homo erectus", "Homo sapiens", "Homo habilis", "Homo neanderthalensis"],
+                    answer: 1
+                },
+                {
+                    question: "Red blood cells are produced in the:",
+                    options: ["Liver", "Spleen", "Bone marrow", "Heart"],
+                    answer: 2
+                },
+                {
+                    question: "The voice box is also called the:",
+                    options: ["Pharynx", "Larynx", "Trachea", "Bronchus"],
+                    answer: 1
+                },
+                {
+                    question: "Which vitamin is essential for blood clotting?",
+                    options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"],
+                    answer: 3
+                },
+                {
+                    question: "The exchange of gases in plants occurs through:",
+                    options: ["Roots", "Stomata", "Stems", "Flowers"],
+                    answer: 1
+                },
+                {
+                    question: "Bacteria reproduce by:",
+                    options: ["Binary fission", "Budding", "Fragmentation", "Spore formation"],
+                    answer: 0
+                },
+                {
+                    question: "The framework of the body is called the:",
+                    options: ["Muscular system", "Skeletal system", "Nervous system", "Circulatory system"],
+                    answer: 1
+                },
+                {
+                    question: "Which gas do plants absorb during photosynthesis?",
+                    options: ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"],
+                    answer: 2
+                },
+                {
+                    question: "The functional unit of the kidney is:",
+                    options: ["Neuron", "Nephron", "Axon", "Dendrite"],
+                    answer: 1
+                },
+                {
+                    question: "Insulin is produced by the:",
+                    options: ["Liver", "Pancreas", "Kidney", "Stomach"],
+                    answer: 1
+                },
+                {
+                    question: "The Mendel's law of inheritance is based on:",
+                    options: ["Pea plants", "Fruit flies", "Mice", "Bacteria"],
+                    answer: 0
+                },
+                {
+                    question: "Which type of blood cell fights infection?",
+                    options: ["Red blood cells", "White blood cells", "Platelets", "Plasma"],
+                    answer: 1
+                },
+                {
+                    question: "Photosynthesis produces:",
+                    options: ["Carbon dioxide and water", "Oxygen and glucose", "Nitrogen and water", "Hydrogen and oxygen"],
+                    answer: 1
+                },
+                {
+                    question: "The process of converting food into energy is:",
+                    options: ["Digestion", "Respiration", "Excretion", "Circulation"],
+                    answer: 1
+                },
+                {
+                    question: "Which part of the brain controls balance?",
+                    options: ["Cerebrum", "Cerebellum", "Medulla", "Hypothalamus"],
+                    answer: 1
+                },
+                {
+                    question: "The largest gland in the human body is:",
+                    options: ["Pancreas", "Liver", "Thyroid", "Pituitary"],
+                    answer: 1
+                },
+                {
+                    question: "Enzymes are mostly made of:",
+                    options: ["Carbohydrates", "Lipids", "Proteins", "Nucleic acids"],
+                    answer: 2
+                },
+                {
+                    question: "The normal human body temperature is:",
+                    options: ["35°C", "36°C", "37°C", "38°C"],
+                    answer: 2
+                },
+                {
+                    question: "Which organism causes malaria?",
+                    options: ["Bacteria", "Virus", "Plasmodium", "Fungus"],
+                    answer: 2
+                },
+                {
+                    question: "The process of water movement through a plant is called:",
+                    options: ["Osmosis", "Diffusion", "Transpiration", "Active transport"],
+                    answer: 2
                 }
             ],
 
@@ -1007,16 +1306,192 @@
                     question: "The acceleration due to gravity is approximately:",
                     options: ["9.8 m/s²", "10.8 m/s²", "8.8 m/s²", "11.8 m/s²"],
                     answer: 0
+                },
+                {
+                    question: "Power is measured in:",
+                    options: ["Joules", "Watts", "Newtons", "Amperes"],
+                    answer: 1
+                },
+                {
+                    question: "The SI unit of electric current is:",
+                    options: ["Volt", "Ohm", "Ampere", "Coulomb"],
+                    answer: 2
+                },
+                {
+                    question: "The distance traveled per unit time is:",
+                    options: ["Velocity", "Speed", "Acceleration", "Displacement"],
+                    answer: 1
+                },
+                {
+                    question: "An object at rest tends to stay at rest. This is:",
+                    options: ["Newton's first law", "Newton's second law", "Newton's third law", "Law of gravity"],
+                    answer: 0
+                },
+                {
+                    question: "The bending of light when passing through different media is:",
+                    options: ["Reflection", "Refraction", "Diffraction", "Dispersion"],
+                    answer: 1
+                },
+                {
+                    question: "Frequency is measured in:",
+                    options: ["Meters", "Hertz", "Seconds", "Joules"],
+                    answer: 1
+                },
+                {
+                    question: "The formula for potential energy is:",
+                    options: ["½mv²", "mgh", "Fd", "Pt"],
+                    answer: 1
+                },
+                {
+                    question: "Which color has the longest wavelength?",
+                    options: ["Red", "Blue", "Green", "Violet"],
+                    answer: 0
+                },
+                {
+                    question: "The resistance of a conductor depends on:",
+                    options: ["Length only", "Area only", "Material only", "All of the above"],
+                    answer: 3
+                },
+                {
+                    question: "Sound travels fastest in:",
+                    options: ["Air", "Water", "Vacuum", "Solid"],
+                    answer: 3
+                },
+                {
+                    question: "The unit of pressure is:",
+                    options: ["Newton", "Pascal", "Joule", "Watt"],
+                    answer: 1
+                },
+                {
+                    question: "Convex lens is used to correct:",
+                    options: ["Myopia", "Hyperopia", "Astigmatism", "Color blindness"],
+                    answer: 1
+                },
+                {
+                    question: "The principle of conservation of energy states that energy:",
+                    options: ["Can be created", "Can be destroyed", "Cannot be created or destroyed", "Always increases"],
+                    answer: 2
+                },
+                {
+                    question: "A transformer works on the principle of:",
+                    options: ["Conduction", "Electromagnetic induction", "Radiation", "Convection"],
+                    answer: 1
+                },
+                {
+                    question: "The S.I unit of work is:",
+                    options: ["Newton", "Joule", "Watt", "Pascal"],
+                    answer: 1
+                },
+                {
+                    question: "Mass × velocity equals:",
+                    options: ["Force", "Momentum", "Energy", "Power"],
+                    answer: 1
+                },
+                {
+                    question: "Which of these is a vector quantity?",
+                    options: ["Speed", "Distance", "Velocity", "Time"],
+                    answer: 2
+                },
+                {
+                    question: "The time period of a simple pendulum depends on:",
+                    options: ["Mass", "Amplitude", "Length", "Material"],
+                    answer: 2
+                },
+                {
+                    question: "Boiling point of water at sea level is:",
+                    options: ["90°C", "100°C", "110°C", "120°C"],
+                    answer: 1
+                },
+                {
+                    question: "The image formed by a plane mirror is:",
+                    options: ["Real and inverted", "Virtual and upright", "Real and upright", "Virtual and inverted"],
+                    answer: 1
+                },
+                {
+                    question: "Electric current flows from:",
+                    options: ["Negative to positive", "Positive to negative", "Either direction", "No flow"],
+                    answer: 1
+                },
+                {
+                    question: "The S.I unit of frequency is:",
+                    options: ["Second", "Meter", "Hertz", "Watt"],
+                    answer: 2
+                },
+                {
+                    question: "Density equals:",
+                    options: ["Mass/Volume", "Mass × Volume", "Volume/Mass", "Mass + Volume"],
+                    answer: 0
+                },
+                {
+                    question: "Which quantity has the same unit as work?",
+                    options: ["Force", "Power", "Energy", "Momentum"],
+                    answer: 2
+                },
+                {
+                    question: "The loudness of sound depends on:",
+                    options: ["Frequency", "Amplitude", "Wavelength", "Speed"],
+                    answer: 1
+                },
+                {
+                    question: "An echo is a result of:",
+                    options: ["Refraction", "Reflection", "Diffraction", "Interference"],
+                    answer: 1
+                },
+                {
+                    question: "Fuse wire is made of:",
+                    options: ["High melting point material", "Low melting point material", "Insulator", "Semiconductor"],
+                    answer: 1
+                },
+                {
+                    question: "The focal length of a plane mirror is:",
+                    options: ["Zero", "Infinite", "Positive", "Negative"],
+                    answer: 1
+                },
+                {
+                    question: "Pressure in liquids increases with:",
+                    options: ["Height", "Depth", "Surface area", "Temperature"],
+                    answer: 1
+                },
+                {
+                    question: "An object moving with constant velocity has:",
+                    options: ["Zero acceleration", "Positive acceleration", "Negative acceleration", "Variable acceleration"],
+                    answer: 0
+                },
+                {
+                    question: "The property of a body to resist change in its state is:",
+                    options: ["Momentum", "Inertia", "Force", "Energy"],
+                    answer: 1
+                },
+                {
+                    question: "Heat transfer through electromagnetic waves is:",
+                    options: ["Conduction", "Convection", "Radiation", "Absorption"],
+                    answer: 2
+                },
+                {
+                    question: "Two resistors of 4Ω each connected in parallel have total resistance:",
+                    options: ["8Ω", "4Ω", "2Ω", "1Ω"],
+                    answer: 2
+                },
+                {
+                    question: "The principle of floatation is given by:",
+                    options: ["Newton", "Archimedes", "Einstein", "Pascal"],
+                    answer: 1
+                },
+                {
+                    question: "Simple harmonic motion is exhibited by:",
+                    options: ["Bouncing ball", "Simple pendulum", "Rolling wheel", "Falling object"],
+                    answer: 1
                 }
             ]
         };
 
-        // IMPROVED Question distribution - Groups by subject, randomizes within subject
-        function distributeQuestions(subjects, questionsPerSubject) {
+        // NEW DISTRIBUTION FUNCTION - Uses specific question counts
+        function distributeQuestions(subjects, questionCounts) {
             let allQuestions = [];
             
             subjects.forEach(subject => {
                 const subjectQuestions = questionBank[subject];
+                const questionsNeeded = questionCounts[subject];
                 let subjectSelectedQuestions = [];
                 
                 if (subject === "English") {
@@ -1024,7 +1499,7 @@
                     const passages = subjectQuestions.filter(q => q.type === "passage");
                     const regularQuestions = subjectQuestions.filter(q => !q.type);
                     
-                    // Add all passage questions first
+                    // Add all passage questions first (10 questions from 2 passages)
                     passages.forEach(passage => {
                         passage.questions.forEach(q => {
                             subjectSelectedQuestions.push({
@@ -1035,8 +1510,8 @@
                         });
                     });
                     
-                    // If we need more questions, add shuffled regular ones
-                    const remaining = questionsPerSubject - subjectSelectedQuestions.length;
+                    // If we need more questions (60 total - 10 from passages = 50 more needed)
+                    const remaining = questionsNeeded - subjectSelectedQuestions.length;
                     if (remaining > 0) {
                         const shuffled = [...regularQuestions].sort(() => 0.5 - Math.random());
                         for (let i = 0; i < Math.min(remaining, shuffled.length); i++) {
@@ -1047,13 +1522,13 @@
                         }
                     }
                     
-                    // Limit to questionsPerSubject
-                    allQuestions.push(...subjectSelectedQuestions.slice(0, questionsPerSubject));
+                    // Take exactly questionsNeeded
+                    allQuestions.push(...subjectSelectedQuestions.slice(0, questionsNeeded));
                     
                 } else {
-                    // For other subjects, shuffle and select
+                    // For other subjects (40 questions each)
                     const shuffled = [...subjectQuestions].sort(() => 0.5 - Math.random());
-                    const selected = shuffled.slice(0, questionsPerSubject);
+                    const selected = shuffled.slice(0, questionsNeeded);
                     
                     selected.forEach(q => {
                         allQuestions.push({
@@ -1064,15 +1539,14 @@
                 }
             });
             
-            // Questions are now grouped by subject, not scattered
             return allQuestions;
         }
 
-        // Initialize exam
-        let questions = distributeQuestions(examConfig.subjects, examConfig.questionsPerSubject);
+        // Initialize exam with new distribution
+        let questions = distributeQuestions(examConfig.subjects, examConfig.questionCounts);
         let currentQuestionIndex = 0;
         let userAnswers = new Array(questions.length).fill(null);
-        let timeRemaining = examConfig.timeLimit * 60; // Convert to seconds
+        let timeRemaining = examConfig.timeLimit * 60;
 
         document.getElementById('totalQuestions').textContent = questions.length;
 
@@ -1083,7 +1557,6 @@
             document.getElementById('currentSubject').textContent = q.subject;
             document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
             
-            // Show passage if exists
             if (q.passage) {
                 document.getElementById('passageContainer').style.display = 'block';
                 document.getElementById('passageText').textContent = q.passage;
@@ -1093,7 +1566,6 @@
             
             document.getElementById('questionText').textContent = q.question;
             
-            // Display options
             const optionsList = document.getElementById('optionsList');
             optionsList.innerHTML = '';
             
@@ -1108,7 +1580,6 @@
                 optionsList.appendChild(li);
             });
             
-            // Update navigation buttons
             document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
             
             if (currentQuestionIndex === questions.length - 1) {
@@ -1184,9 +1655,6 @@
         }
 
         function submitExam() {
-            const answeredCount = userAnswers.filter(a => a !== null).length;
-            
-            // Calculate score
             let correct = 0;
             questions.forEach((q, index) => {
                 if (userAnswers[index] === q.answer) {
@@ -1196,7 +1664,6 @@
             
             const score = Math.round((correct / questions.length) * 100);
             
-            // Save results
             const result = {
                 username: username,
                 subjects: examConfig.subjects.join(', '),
@@ -1207,12 +1674,9 @@
             };
             
             localStorage.setItem('lastExamResult', JSON.stringify(result));
-            
-            // Save questions and answers for review
             localStorage.setItem('examQuestions', JSON.stringify(questions));
             localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
             
-            // Update stats
             const stats = JSON.parse(localStorage.getItem('userStats')) || {
                 totalExams: 0,
                 avgScore: 0,
@@ -1227,7 +1691,6 @@
             
             localStorage.setItem('userStats', JSON.stringify(stats));
             
-            // Redirect to results page
             window.location.href = 'results.html';
         }
 
@@ -1243,12 +1706,10 @@
             }
         }
 
-        // Initialize
         displayQuestion();
         updateQuestionGrid();
         startTimer();
 
-        // Prevent accidental page close
         window.addEventListener('beforeunload', function (e) {
             e.preventDefault();
             e.returnValue = 'Are you sure you want to leave? Your exam progress will be lost.';

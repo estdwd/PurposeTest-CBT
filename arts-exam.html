@@ -402,10 +402,10 @@
 
         document.getElementById('studentName').textContent = username;
 
-        // ARTS QUESTION BANK
+        // ARTS QUESTION BANK (Same as before - all subjects with 40+ questions each)
         const questionBank = {
             "English": [
-                // COMPREHENSION PASSAGE 1 (Same as Science - it's general English)
+                // Same 40 English questions from before (2 passages + 30 regular)
                 {
                     type: "passage",
                     passage: "The rapid advancement of technology has fundamentally transformed the way we communicate, work, and live. Social media platforms have connected billions of people across the globe, enabling instant communication and the sharing of ideas. However, this digital revolution has also raised concerns about privacy, mental health, and the spread of misinformation. As we navigate this new landscape, it is crucial to strike a balance between embracing innovation and protecting our well-being.",
@@ -437,7 +437,6 @@
                         }
                     ]
                 },
-                // COMPREHENSION PASSAGE 2 (Same as Science - it's general English)
                 {
                     type: "passage",
                     passage: "Climate change represents one of the most pressing challenges of our time. Rising global temperatures, melting ice caps, and extreme weather events are clear indicators of environmental degradation. Scientists warn that without immediate and collective action, the consequences will be irreversible. Governments, businesses, and individuals must work together to reduce carbon emissions, protect natural habitats, and transition to renewable energy sources. The future of our planet depends on the decisions we make today.",
@@ -469,7 +468,7 @@
                         }
                     ]
                 },
-                // REGULAR ENGLISH QUESTIONS (30 - Same as Science)
+                // 30 Regular English questions (same as before)
                 {
                     question: "Choose the word that best completes the sentence: The teacher was _____ with the student's performance.",
                     options: ["pleased", "pleasing", "pleasure", "pleasant"],
@@ -619,10 +618,61 @@
                     question: "What does the prefix 'anti-' mean?",
                     options: ["For", "Against", "Before", "After"],
                     answer: 1
+                },
+                {
+                    question: "The sentence 'She sells sea shells' is an example of:",
+                    options: ["Metaphor", "Alliteration", "Simile", "Personification"],
+                    answer: 1
+                },
+                {
+                    question: "A group of words without a subject or predicate is called:",
+                    options: ["Clause", "Phrase", "Sentence", "Paragraph"],
+                    answer: 1
+                },
+                {
+                    question: "The word 'run' in 'run a business' is used as:",
+                    options: ["Literal meaning", "Figurative meaning", "Slang", "Idiom"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the correct form: She _____ to the market every day.",
+                    options: ["go", "goes", "going", "gone"],
+                    answer: 1
+                },
+                {
+                    question: "An oxymoron is:",
+                    options: ["Two opposite words together", "Exaggeration", "Comparison", "Repetition"],
+                    answer: 0
+                },
+                {
+                    question: "The study of word origins is called:",
+                    options: ["Etymology", "Entomology", "Morphology", "Phonology"],
+                    answer: 0
+                },
+                {
+                    question: "Which is a compound word?",
+                    options: ["Beautiful", "Classroom", "Running", "Quickly"],
+                    answer: 1
+                },
+                {
+                    question: "The passive voice of 'She writes a letter' is:",
+                    options: ["A letter writes her", "A letter is written by her", "A letter was written by her", "She is writing a letter"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the synonym for 'ancient':",
+                    options: ["Modern", "New", "Old", "Recent"],
+                    answer: 2
+                },
+                {
+                    question: "A person who writes plays is called a:",
+                    options: ["Novelist", "Playwright", "Poet", "Author"],
+                    answer: 1
                 }
             ],
 
             "Literature": [
+                // 20 Literature questions (from before)
                 {
                     question: "Who wrote 'Things Fall Apart'?",
                     options: ["Wole Soyinka", "Chinua Achebe", "Chimamanda Adichie", "Ben Okri"],
@@ -722,10 +772,112 @@
                     question: "A poem that mourns the death of someone is:",
                     options: ["Ode", "Sonnet", "Elegy", "Ballad"],
                     answer: 2
+                },
+                // Add 20 more to reach 40
+                {
+                    question: "Who wrote 'Hamlet'?",
+                    options: ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
+                    answer: 1
+                },
+                {
+                    question: "A five-line humorous poem is called:",
+                    options: ["Sonnet", "Haiku", "Limerick", "Ballad"],
+                    answer: 2
+                },
+                {
+                    question: "The term 'protagonist' refers to:",
+                    options: ["The villain", "The main character", "A minor character", "The narrator"],
+                    answer: 1
+                },
+                {
+                    question: "Foreshadowing is:",
+                    options: ["Looking back at past events", "Hinting at future events", "Character development", "Setting description"],
+                    answer: 1
+                },
+                {
+                    question: "Who wrote 'Purple Hibiscus'?",
+                    options: ["Chimamanda Adichie", "Buchi Emecheta", "Chinua Achebe", "Wole Soyinka"],
+                    answer: 0
+                },
+                {
+                    question: "A dramatic monologue is:",
+                    options: ["A conversation", "One character speaking alone", "A group discussion", "Silent acting"],
+                    answer: 1
+                },
+                {
+                    question: "The resolution of a story is also called:",
+                    options: ["Exposition", "Rising action", "Denouement", "Climax"],
+                    answer: 2
+                },
+                {
+                    question: "Personification gives human qualities to:",
+                    options: ["Animals only", "Non-human things", "Characters", "Narrators"],
+                    answer: 1
+                },
+                {
+                    question: "A tragic flaw in a character is called:",
+                    options: ["Hubris", "Hamartia", "Nemesis", "Catharsis"],
+                    answer: 1
+                },
+                {
+                    question: "Who wrote 'Animal Farm'?",
+                    options: ["George Orwell", "Aldous Huxley", "Ernest Hemingway", "F. Scott Fitzgerald"],
+                    answer: 0
+                },
+                {
+                    question: "Stream of consciousness is a technique used in:",
+                    options: ["Poetry", "Drama", "Prose", "All of the above"],
+                    answer: 2
+                },
+                {
+                    question: "A poem's rhythmic pattern is its:",
+                    options: ["Rhyme", "Meter", "Tone", "Theme"],
+                    answer: 1
+                },
+                {
+                    question: "Satire is used to:",
+                    options: ["Praise", "Criticize through humor", "Describe nature", "Tell history"],
+                    answer: 1
+                },
+                {
+                    question: "The antagonist is:",
+                    options: ["The hero", "The opposing force", "The narrator", "The author"],
+                    answer: 1
+                },
+                {
+                    question: "Who wrote 'Death of a Salesman'?",
+                    options: ["Tennessee Williams", "Arthur Miller", "Eugene O'Neill", "Samuel Beckett"],
+                    answer: 1
+                },
+                {
+                    question: "A ballad is typically:",
+                    options: ["A narrative poem", "A love letter", "A short story", "An essay"],
+                    answer: 0
+                },
+                {
+                    question: "Imagery appeals to:",
+                    options: ["Logic", "The senses", "Emotions only", "Memory"],
+                    answer: 1
+                },
+                {
+                    question: "An allegory is:",
+                    options: ["A simple story", "A story with hidden meaning", "A biography", "A comedy"],
+                    answer: 1
+                },
+                {
+                    question: "Who is known as the 'Bard of Avon'?",
+                    options: ["John Milton", "William Shakespeare", "Geoffrey Chaucer", "William Wordsworth"],
+                    answer: 1
+                },
+                {
+                    question: "A soliloquy is:",
+                    options: ["A dialogue", "Speaking thoughts aloud when alone", "A group speech", "Silent reading"],
+                    answer: 1
                 }
             ],
 
             "Government": [
+                // All 20 Government questions from before + 20 more
                 {
                     question: "The supreme law of a country is called:",
                     options: ["Act", "Constitution", "Decree", "Policy"],
@@ -825,10 +977,112 @@
                     question: "The civil service is part of the:",
                     options: ["Legislature", "Judiciary", "Executive", "Political parties"],
                     answer: 2
+                },
+                // 20 more questions
+                {
+                    question: "Bicameral legislature means:",
+                    options: ["One house", "Two houses", "Three houses", "No house"],
+                    answer: 1
+                },
+                {
+                    question: "The upper house in Nigeria is called:",
+                    options: ["House of Representatives", "Senate", "National Assembly", "Congress"],
+                    answer: 1
+                },
+                {
+                    question: "Proportional representation is a type of:",
+                    options: ["Government", "Electoral system", "Political party", "Constitution"],
+                    answer: 1
+                },
+                {
+                    question: "Sovereignty means:",
+                    options: ["Dependence", "Supreme power", "Weakness", "Cooperation"],
+                    answer: 1
+                },
+                {
+                    question: "A state of emergency can be declared by:",
+                    options: ["Judges", "The President", "Citizens", "Police"],
+                    answer: 1
+                },
+                {
+                    question: "Lobbying in politics means:",
+                    options: ["Voting", "Influencing lawmakers", "Protesting", "Running for office"],
+                    answer: 1
+                },
+                {
+                    question: "The tenure of a President in Nigeria is:",
+                    options: ["3 years", "4 years", "5 years", "6 years"],
+                    answer: 1
+                },
+                {
+                    question: "Impeachment is the process of:",
+                    options: ["Electing officials", "Removing officials from office", "Appointing officials", "Promoting officials"],
+                    answer: 1
+                },
+                {
+                    question: "The African Union (AU) headquarters is in:",
+                    options: ["Cairo", "Nairobi", "Addis Ababa", "Lagos"],
+                    answer: 2
+                },
+                {
+                    question: "Gerrymandering refers to:",
+                    options: ["Fair elections", "Manipulating electoral boundaries", "Voter registration", "Campaign financing"],
+                    answer: 1
+                },
+                {
+                    question: "The Commonwealth of Nations is headed by:",
+                    options: ["UN Secretary", "British Monarch", "US President", "African Leaders"],
+                    answer: 1
+                },
+                {
+                    question: "Delegated legislation is made by:",
+                    options: ["Parliament", "Executive agencies", "Courts", "Citizens"],
+                    answer: 1
+                },
+                {
+                    question: "A vote of no confidence can lead to:",
+                    options: ["New elections", "Government fall", "Policy change", "Budget approval"],
+                    answer: 1
+                },
+                {
+                    question: "Public opinion is shaped mainly by:",
+                    options: ["Government only", "Media and education", "Military", "Judiciary"],
+                    answer: 1
+                },
+                {
+                    question: "Nationalism is:",
+                    options: ["Hatred of one's country", "Love and loyalty to one's country", "Indifference", "Migration"],
+                    answer: 1
+                },
+                {
+                    question: "The veto power in the UN Security Council is held by:",
+                    options: ["All members", "Five permanent members", "African countries", "Developing nations"],
+                    answer: 1
+                },
+                {
+                    question: "Local government is the:",
+                    options: ["First tier", "Second tier", "Third tier", "Fourth tier"],
+                    answer: 2
+                },
+                {
+                    question: "Civil society organizations include:",
+                    options: ["Government agencies", "NGOs and pressure groups", "Military", "Courts"],
+                    answer: 1
+                },
+                {
+                    question: "The rule of law was popularized by:",
+                    options: ["Montesquieu", "A.V. Dicey", "John Locke", "Karl Marx"],
+                    answer: 1
+                },
+                {
+                    question: "Pressure groups aim to:",
+                    options: ["Win elections", "Influence government policy", "Replace government", "Make laws"],
+                    answer: 1
                 }
             ],
 
             "Commerce": [
+                // All 20 Commerce questions + 20 more
                 {
                     question: "Commerce is primarily concerned with:",
                     options: ["Production", "Distribution and exchange", "Consumption", "Storage"],
@@ -928,10 +1182,112 @@
                     question: "The person who starts a business is called:",
                     options: ["Manager", "Entrepreneur", "Accountant", "Supervisor"],
                     answer: 1
+                },
+                // 20 more
+                {
+                    question: "Trade by barter involves:",
+                    options: ["Using money", "Direct exchange of goods", "Credit sales", "Online payment"],
+                    answer: 1
+                },
+                {
+                    question: "The main function of a warehouse is:",
+                    options: ["Production", "Storage", "Transportation", "Packaging"],
+                    answer: 1
+                },
+                {
+                    question: "A bounced cheque is one that:",
+                    options: ["Is honored", "Has insufficient funds", "Is post-dated", "Is certified"],
+                    answer: 1
+                },
+                {
+                    question: "Advertising is part of:",
+                    options: ["Production", "Marketing", "Finance", "Administration"],
+                    answer: 1
+                },
+                {
+                    question: "Direct services include:",
+                    options: ["Teaching", "Manufacturing", "Mining", "Farming"],
+                    answer: 0
+                },
+                {
+                    question: "A pro forma invoice is sent:",
+                    options: ["After delivery", "Before delivery", "With payment", "After payment"],
+                    answer: 1
+                },
+                {
+                    question: "Invisible trade involves:",
+                    options: ["Goods", "Services", "Barter", "Donations"],
+                    answer: 1
+                },
+                {
+                    question: "The term 'caveat emptor' means:",
+                    options: ["Seller beware", "Buyer beware", "Let the trade begin", "No returns"],
+                    answer: 1
+                },
+                {
+                    question: "A debenture is:",
+                    options: ["Share capital", "Loan certificate", "Dividend", "Profit"],
+                    answer: 1
+                },
+                {
+                    question: "Consignment trade means:",
+                    options: ["Cash sales", "Goods sent for sale", "Barter", "Export"],
+                    answer: 1
+                },
+                {
+                    question: "A chamber of commerce is:",
+                    options: ["Government body", "Business association", "Court", "School"],
+                    answer: 1
+                },
+                {
+                    question: "Freight refers to:",
+                    options: ["Storage cost", "Transportation cost", "Insurance cost", "Packaging cost"],
+                    answer: 1
+                },
+                {
+                    question: "An overdraft is:",
+                    options: ["Savings", "Loan facility", "Deposit", "Investment"],
+                    answer: 1
+                },
+                {
+                    question: "A quota in international trade is:",
+                    options: ["Tax", "Limit on imports", "Subsidy", "License"],
+                    answer: 1
+                },
+                {
+                    question: "Branding helps in:",
+                    options: ["Production", "Product identification", "Storage", "Accounting"],
+                    answer: 1
+                },
+                {
+                    question: "A middleman is:",
+                    options: ["Producer", "Intermediary", "Consumer", "Manufacturer"],
+                    answer: 1
+                },
+                {
+                    question: "Entreport trade involves:",
+                    options: ["Import only", "Export only", "Re-export", "Barter"],
+                    answer: 2
+                },
+                {
+                    question: "A trade association protects:",
+                    options: ["Consumers", "Business interests", "Government", "Workers"],
+                    answer: 1
+                },
+                {
+                    question: "Mail order business is:",
+                    options: ["Retail", "Wholesale", "Distance selling", "Manufacturing"],
+                    answer: 2
+                },
+                {
+                    question: "Dumping in trade means:",
+                    options: ["Fair pricing", "Selling below cost abroad", "High tariffs", "Import ban"],
+                    answer: 1
                 }
             ],
 
             "Accounting": [
+                // All 20 Accounting questions + 20 more
                 {
                     question: "The book of original entry is also called:",
                     options: ["Ledger", "Journal", "Cash book", "Trial balance"],
@@ -1031,10 +1387,112 @@
                     question: "Capital expenditure is for:",
                     options: ["Day-to-day expenses", "Purchasing fixed assets", "Paying salaries", "Buying stock"],
                     answer: 1
+                },
+                // 20 more
+                {
+                    question: "FIFO stands for:",
+                    options: ["First In First Out", "Fast In Fast Out", "Final In Final Out", "First Item First Out"],
+                    answer: 0
+                },
+                {
+                    question: "A provision is:",
+                    options: ["Definite liability", "Uncertain liability", "Asset", "Income"],
+                    answer: 1
+                },
+                {
+                    question: "The purchases account is:",
+                    options: ["Asset", "Liability", "Expense", "Income"],
+                    answer: 2
+                },
+                {
+                    question: "Carriage inward is added to:",
+                    options: ["Sales", "Purchases", "Assets", "Capital"],
+                    answer: 1
+                },
+                {
+                    question: "Net profit is found in:",
+                    options: ["Trading account", "Profit and loss account", "Balance sheet", "Cash book"],
+                    answer: 1
+                },
+                {
+                    question: "A contra entry affects:",
+                    options: ["Two different books", "Same book twice", "No books", "Three books"],
+                    answer: 1
+                },
+                {
+                    question: "Discount allowed is:",
+                    options: ["Income", "Expense", "Asset", "Liability"],
+                    answer: 1
+                },
+                {
+                    question: "The cost of goods sold formula is:",
+                    options: ["Opening stock + Purchases", "Opening stock + Purchases - Closing stock", "Sales - Purchases", "Purchases - Expenses"],
+                    answer: 1
+                },
+                {
+                    question: "Returns inward are:",
+                    options: ["Goods we return", "Goods returned to us", "Damaged goods", "Stolen goods"],
+                    answer: 1
+                },
+                {
+                    question: "A liability is:",
+                    options: ["What we own", "What we owe", "What we earn", "What we spend"],
+                    answer: 1
+                },
+                {
+                    question: "Liquidity ratio measures:",
+                    options: ["Profitability", "Ability to pay short-term debts", "Long-term solvency", "Market value"],
+                    answer: 1
+                },
+                {
+                    question: "The accounting period is usually:",
+                    options: ["1 month", "6 months", "1 year", "2 years"],
+                    answer: 2
+                },
+                {
+                    question: "Posting means:",
+                    options: ["Writing in journal", "Transferring to ledger", "Balancing accounts", "Closing books"],
+                    answer: 1
+                },
+                {
+                    question: "A cashbook records:",
+                    options: ["Credit transactions", "Cash and bank transactions", "Assets only", "Liabilities only"],
+                    answer: 1
+                },
+                {
+                    question: "Stock turnover ratio shows:",
+                    options: ["Profit margin", "How fast stock sells", "Asset value", "Debt levels"],
+                    answer: 1
+                },
+                {
+                    question: "The source document for cash sales is:",
+                    options: ["Invoice", "Receipt", "Statement", "Voucher"],
+                    answer: 1
+                },
+                {
+                    question: "Accumulated depreciation is:",
+                    options: ["Asset", "Liability", "Contra asset", "Expense"],
+                    answer: 2
+                },
+                {
+                    question: "A suspense account is used for:",
+                    options: ["Correct entries", "Temporary differences", "Fixed assets", "Income"],
+                    answer: 1
+                },
+                {
+                    question: "Gross profit percentage is:",
+                    options: ["Gross profit / Sales × 100", "Net profit / Sales × 100", "Sales / Profit × 100", "Profit / Assets × 100"],
+                    answer: 0
+                },
+                {
+                    question: "Imprest system is used for:",
+                    options: ["Main cash", "Petty cash", "Bank", "Capital"],
+                    answer: 1
                 }
             ],
 
             "CRS": [
+                // All 20 CRS questions + 20 more
                 {
                     question: "The first book of the Bible is:",
                     options: ["Exodus", "Genesis", "Leviticus", "Numbers"],
@@ -1134,16 +1592,118 @@
                     question: "The Holy Spirit descended on Jesus like a:",
                     options: ["Eagle", "Dove", "Raven", "Sparrow"],
                     answer: 1
+                },
+                // 20 more
+                {
+                    question: "How many days did God take to create the world?",
+                    options: ["5", "6", "7", "8"],
+                    answer: 1
+                },
+                {
+                    question: "The wisest king in the Bible was:",
+                    options: ["David", "Solomon", "Saul", "Rehoboam"],
+                    answer: 1
+                },
+                {
+                    question: "Who built the ark?",
+                    options: ["Abraham", "Moses", "Noah", "David"],
+                    answer: 2
+                },
+                {
+                    question: "The garden where Adam and Eve lived was:",
+                    options: ["Eden", "Gethsemane", "Babylon", "Jordan"],
+                    answer: 0
+                },
+                {
+                    question: "Jesus was crucified at:",
+                    options: ["Bethany", "Golgotha", "Nazareth", "Capernaum"],
+                    answer: 1
+                },
+                {
+                    question: "Who denied Jesus three times?",
+                    options: ["John", "Peter", "James", "Andrew"],
+                    answer: 1
+                },
+                {
+                    question: "The resurrection of Jesus occurred on:",
+                    options: ["Friday", "Saturday", "Sunday", "Monday"],
+                    answer: 2
+                },
+                {
+                    question: "Abraham's wife was:",
+                    options: ["Rebecca", "Rachel", "Sarah", "Ruth"],
+                    answer: 2
+                },
+                {
+                    question: "The brother of Moses was:",
+                    options: ["Joshua", "Aaron", "Caleb", "Samuel"],
+                    answer: 1
+                },
+                {
+                    question: "Jesus fed 5000 people with:",
+                    options: ["2 fish and 3 loaves", "5 fish and 2 loaves", "2 fish and 5 loaves", "3 fish and 3 loaves"],
+                    answer: 2
+                },
+                {
+                    question: "The Good Samaritan is found in the Gospel of:",
+                    options: ["Matthew", "Mark", "Luke", "John"],
+                    answer: 2
+                },
+                {
+                    question: "Who was swallowed by a big fish?",
+                    options: ["Jonah", "Daniel", "Elijah", "Elisha"],
+                    answer: 0
+                },
+                {
+                    question: "The Beatitudes are found in:",
+                    options: ["John", "Luke", "Matthew", "Mark"],
+                    answer: 2
+                },
+                {
+                    question: "Who was the first martyr?",
+                    options: ["Peter", "Paul", "Stephen", "James"],
+                    answer: 2
+                },
+                {
+                    question: "Jesus walked on:",
+                    options: ["Sand", "Water", "Fire", "Air"],
+                    answer: 1
+                },
+                {
+                    question: "The prodigal son is found in:",
+                    options: ["Matthew", "Mark", "Luke", "John"],
+                    answer: 2
+                },
+                {
+                    question: "Who interpreted dreams in Egypt?",
+                    options: ["Moses", "Joseph", "Daniel", "David"],
+                    answer: 1
+                },
+                {
+                    question: "The book of Psalms was mostly written by:",
+                    options: ["Moses", "David", "Solomon", "Samuel"],
+                    answer: 1
+                },
+                {
+                    question: "Jesus raised Lazarus from the dead in:",
+                    options: ["Jerusalem", "Bethany", "Nazareth", "Bethlehem"],
+                    answer: 1
+                },
+                {
+                    question: "The greatest commandment is to:",
+                    options: ["Love God", "Love neighbor", "Love God and neighbor", "Obey parents"],
+                    answer: 2
                 }
             ]
         };
 
-        // Question distribution (same logic as science exam)
-        function distributeQuestions(subjects, questionsPerSubject) {
+        // Distribution function (same as science exam)
+        function distributeQuestions(subjects, questionCounts) {
             let allQuestions = [];
             
             subjects.forEach(subject => {
                 const subjectQuestions = questionBank[subject];
+                const questionsNeeded = questionCounts[subject];
                 let subjectSelectedQuestions = [];
                 
                 if (subject === "English") {
@@ -1160,7 +1720,7 @@
                         });
                     });
                     
-                    const remaining = questionsPerSubject - subjectSelectedQuestions.length;
+                    const remaining = questionsNeeded - subjectSelectedQuestions.length;
                     if (remaining > 0) {
                         const shuffled = [...regularQuestions].sort(() => 0.5 - Math.random());
                         for (let i = 0; i < Math.min(remaining, shuffled.length); i++) {
@@ -1171,11 +1731,11 @@
                         }
                     }
                     
-                    allQuestions.push(...subjectSelectedQuestions.slice(0, questionsPerSubject));
+                    allQuestions.push(...subjectSelectedQuestions.slice(0, questionsNeeded));
                     
                 } else {
                     const shuffled = [...subjectQuestions].sort(() => 0.5 - Math.random());
-                    const selected = shuffled.slice(0, questionsPerSubject);
+                    const selected = shuffled.slice(0, questionsNeeded);
                     
                     selected.forEach(q => {
                         allQuestions.push({
@@ -1190,14 +1750,14 @@
         }
 
         // Initialize exam
-        let questions = distributeQuestions(examConfig.subjects, examConfig.questionsPerSubject);
+        let questions = distributeQuestions(examConfig.subjects, examConfig.questionCounts);
         let currentQuestionIndex = 0;
         let userAnswers = new Array(questions.length).fill(null);
         let timeRemaining = examConfig.timeLimit * 60;
 
         document.getElementById('totalQuestions').textContent = questions.length;
 
-        // Display question
+        // All other functions (displayQuestion, selectOption, etc.) - SAME AS SCIENCE EXAM
         function displayQuestion() {
             const q = questions[currentQuestionIndex];
             

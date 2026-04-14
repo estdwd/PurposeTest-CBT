@@ -214,6 +214,12 @@
             transform: scale(0.98);
         }
 
+        .subject-questions {
+            font-size: 11px;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
         .selected-count {
             margin-top: 12px;
             padding: 10px 15px;
@@ -224,7 +230,18 @@
             text-align: center;
         }
 
-        /* Number Input Section */
+        .error-message {
+            background: rgba(239, 68, 68, 0.3);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            padding: 12px;
+            border-radius: 10px;
+            color: white;
+            font-size: 13px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* Time Limit */
         .input-group {
             margin-bottom: 20px;
         }
@@ -285,6 +302,37 @@
             font-size: 12px;
         }
 
+        /* Question Summary */
+        .summary-card {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .summary-title {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .summary-item {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .total-questions {
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
         /* Start Button */
         .start-btn {
             width: 100%;
@@ -310,6 +358,7 @@
             background: rgba(255, 255, 255, 0.2);
             cursor: not-allowed;
             box-shadow: none;
+            opacity: 0.6;
         }
 
         /* Mobile Responsive */
@@ -378,57 +427,69 @@
             <!-- Header -->
             <div class="header-section">
                 <h1>🔬 Science Exam Configuration</h1>
-                <p>Customize your exam settings</p>
+                <p>Select exactly 4 subjects to begin</p>
             </div>
 
             <!-- Subject Selection -->
             <div class="config-card">
                 <div class="section-title">
                     Select Subjects
-                    <span class="required-badge">REQUIRED</span>
+                    <span class="required-badge">4 REQUIRED</span>
                 </div>
-                <p class="info-text">Choose 1-4 subjects. English is mandatory.</p>
+                <p class="info-text">Choose exactly 4 subjects. English is mandatory (60 questions). Others have 40 questions each.</p>
                 
                 <div class="subjects-grid">
                     <div class="subject-checkbox">
                         <input type="checkbox" id="english" value="English" checked disabled>
-                        <label for="english" class="subject-label">📝 English</label>
+                        <label for="english" class="subject-label">
+                            📝 English
+                            <div class="subject-questions">60 questions</div>
+                        </label>
                     </div>
                     <div class="subject-checkbox">
                         <input type="checkbox" id="mathematics" value="Mathematics">
-                        <label for="mathematics" class="subject-label">🔢 Mathematics</label>
+                        <label for="mathematics" class="subject-label">
+                            🔢 Mathematics
+                            <div class="subject-questions">40 questions</div>
+                        </label>
                     </div>
                     <div class="subject-checkbox">
                         <input type="checkbox" id="physics" value="Physics">
-                        <label for="physics" class="subject-label">⚡ Physics</label>
+                        <label for="physics" class="subject-label">
+                            ⚡ Physics
+                            <div class="subject-questions">40 questions</div>
+                        </label>
                     </div>
                     <div class="subject-checkbox">
                         <input type="checkbox" id="chemistry" value="Chemistry">
-                        <label for="chemistry" class="subject-label">🧪 Chemistry</label>
+                        <label for="chemistry" class="subject-label">
+                            🧪 Chemistry
+                            <div class="subject-questions">40 questions</div>
+                        </label>
                     </div>
                     <div class="subject-checkbox">
                         <input type="checkbox" id="biology" value="Biology">
-                        <label for="biology" class="subject-label">🧬 Biology</label>
+                        <label for="biology" class="subject-label">
+                            🧬 Biology
+                            <div class="subject-questions">40 questions</div>
+                        </label>
                     </div>
                 </div>
 
                 <div class="selected-count" id="selectedCount">
                     1 of 4 subjects selected
                 </div>
-            </div>
 
-            <!-- Number of Questions -->
-            <div class="config-card">
-                <div class="section-title">Number of Questions</div>
-                <p class="info-text">Set how many questions per subject (minimum 5)</p>
-                
-                <div class="input-group">
-                    <div class="number-input-wrapper">
-                        <div class="number-btn" onclick="decreaseQuestions()">-</div>
-                        <div class="number-display" id="questionsDisplay">10</div>
-                        <div class="number-btn" onclick="increaseQuestions()">+</div>
+                <div class="error-message" id="errorMessage">
+                    ⚠️ You must select exactly 4 subjects to continue
+                </div>
+
+                <div class="summary-card" id="summaryCard" style="display: none;">
+                    <div class="summary-title">📊 Question Summary</div>
+                    <div id="summaryContent"></div>
+                    <div class="total-questions" id="totalQuestionsDisplay">
+                        Total: 0 questions
                     </div>
-                    <p class="input-info">Questions per subject</p>
                 </div>
             </div>
 
@@ -440,16 +501,16 @@
                 <div class="input-group">
                     <div class="number-input-wrapper">
                         <div class="number-btn" onclick="decreaseTime()">-</div>
-                        <div class="number-display" id="timeDisplay">30</div>
+                        <div class="number-display" id="timeDisplay">120</div>
                         <div class="number-btn" onclick="increaseTime()">+</div>
                     </div>
-                    <p class="input-info">Minutes</p>
+                    <p class="input-info">Minutes (recommended: 120 minutes for 4 subjects)</p>
                 </div>
             </div>
 
             <!-- Start Exam Button -->
-            <button class="start-btn" id="startBtn" onclick="startExam()">
-                START EXAM 🚀
+            <button class="start-btn" id="startBtn" onclick="startExam()" disabled>
+                SELECT 4 SUBJECTS TO START
             </button>
         </div>
     </div>
@@ -461,10 +522,18 @@
         document.getElementById('userAvatar').textContent = firstLetter;
         document.getElementById('displayName').textContent = username;
 
+        // Question counts per subject
+        const questionCounts = {
+            'English': 60,
+            'Mathematics': 40,
+            'Physics': 40,
+            'Chemistry': 40,
+            'Biology': 40
+        };
+
         // State
         let selectedSubjects = ['English'];
-        let questionsCount = 10;
-        let timeLimit = 30;
+        let timeLimit = 120;
 
         // Subject Selection
         const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(#english)');
@@ -480,8 +549,12 @@
                 }
             });
 
-            // Limit to 4 subjects
-            if (selectedSubjects.length >= 4) {
+            // Update count display
+            const count = selectedSubjects.length;
+            document.getElementById('selectedCount').textContent = `${count} of 4 subjects selected`;
+
+            // Disable checkboxes if 4 subjects selected
+            if (count >= 4) {
                 checkboxes.forEach(checkbox => {
                     if (!checkbox.checked) {
                         checkbox.disabled = true;
@@ -495,20 +568,51 @@
                 });
             }
 
-            document.getElementById('selectedCount').textContent = 
-                `${selectedSubjects.length} of 4 subjects selected`;
+            // Update summary and button
+            updateSummary();
+            updateStartButton();
         }
 
-        // Questions Counter
-        function increaseQuestions() {
-            questionsCount++;
-            document.getElementById('questionsDisplay').textContent = questionsCount;
+        function updateSummary() {
+            const summaryCard = document.getElementById('summaryCard');
+            const summaryContent = document.getElementById('summaryContent');
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (selectedSubjects.length === 4) {
+                summaryCard.style.display = 'block';
+                errorMessage.style.display = 'none';
+
+                let totalQuestions = 0;
+                let summaryHTML = '';
+
+                selectedSubjects.forEach(subject => {
+                    const count = questionCounts[subject];
+                    totalQuestions += count;
+                    summaryHTML += `<div class="summary-item">• ${subject}: ${count} questions</div>`;
+                });
+
+                summaryContent.innerHTML = summaryHTML;
+                document.getElementById('totalQuestionsDisplay').textContent = `Total: ${totalQuestions} questions`;
+            } else {
+                summaryCard.style.display = 'none';
+                if (selectedSubjects.length > 1) {
+                    errorMessage.style.display = 'block';
+                } else {
+                    errorMessage.style.display = 'none';
+                }
+            }
         }
 
-        function decreaseQuestions() {
-            if (questionsCount > 5) {
-                questionsCount--;
-                document.getElementById('questionsDisplay').textContent = questionsCount;
+        function updateStartButton() {
+            const startBtn = document.getElementById('startBtn');
+            
+            if (selectedSubjects.length === 4) {
+                startBtn.disabled = false;
+                startBtn.textContent = 'START EXAM 🚀';
+            } else {
+                startBtn.disabled = true;
+                const needed = 4 - selectedSubjects.length;
+                startBtn.textContent = `SELECT ${needed} MORE SUBJECT${needed > 1 ? 'S' : ''} TO START`;
             }
         }
 
@@ -527,11 +631,21 @@
 
         // Start Exam
         function startExam() {
+            if (selectedSubjects.length !== 4) {
+                return;
+            }
+
+            // Calculate total questions
+            let totalQuestions = 0;
+            selectedSubjects.forEach(subject => {
+                totalQuestions += questionCounts[subject];
+            });
+
             const config = {
                 subjects: selectedSubjects,
-                questionsPerSubject: questionsCount,
+                questionCounts: questionCounts, // Pass the question counts object
                 timeLimit: timeLimit,
-                totalQuestions: selectedSubjects.length * questionsCount
+                totalQuestions: totalQuestions
             };
 
             localStorage.setItem('examConfig', JSON.stringify(config));
@@ -544,6 +658,10 @@
         function goBack() {
             window.history.back();
         }
+
+        // Initial update
+        updateSummary();
+        updateStartButton();
 
         // Prevent overscroll
         document.body.addEventListener('touchmove', function(e) {

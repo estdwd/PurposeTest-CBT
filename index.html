@@ -11,20 +11,16 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            position: fixed;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
         .login-container {
@@ -37,6 +33,8 @@
             width: 100%;
             max-width: 400px;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            position: relative;
+            z-index: 1;
         }
 
         .logo-section {
@@ -126,27 +124,245 @@
             line-height: 1.6;
         }
 
-        /* Mobile optimizations */
+        /* WhatsApp Modal */
+        .whatsapp-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.4s ease;
+            position: relative;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .modal-title {
+            color: white;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-text {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .whatsapp-btn {
+            background: white;
+            color: #25d366;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp-btn:active {
+            transform: translateY(0);
+        }
+
+        .modal-note {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: white;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Password Reveal Notification */
+        .password-reveal {
+            position: fixed;
+            left: -400px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            padding: 25px 30px;
+            border-radius: 0 20px 20px 0;
+            box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            transition: left 0.5s ease;
+            max-width: 350px;
+        }
+
+        .password-reveal.show {
+            left: 0;
+        }
+
+        .reveal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .reveal-icon {
+            font-size: 30px;
+        }
+
+        .reveal-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .reveal-password {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .password-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .password-value {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .reveal-note {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* Checking Animation */
+        .checking-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+        }
+
+        .checking-content {
+            text-align: center;
+            color: white;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #25d366;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .checking-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 480px) {
             .login-container {
                 padding: 35px 25px;
-                max-width: 100%;
             }
 
             .logo-section h1 {
                 font-size: 28px;
             }
 
-            .logo-section p {
-                font-size: 13px;
+            .modal-content {
+                padding: 35px 25px;
             }
 
-            .input-wrapper input {
-                font-size: 16px; /* Prevents zoom on iOS */
+            .modal-title {
+                font-size: 22px;
+            }
+
+            .password-reveal {
+                max-width: 90%;
+                left: -100%;
+            }
+
+            .password-value {
+                font-size: 20px;
             }
         }
 
-        /* Prevent overscroll bounce on iOS */
         body {
             overscroll-behavior: none;
             -webkit-overflow-scrolling: touch;
@@ -154,6 +370,49 @@
     </style>
 </head>
 <body>
+    <!-- WhatsApp Follow Modal -->
+    <div class="whatsapp-modal" id="whatsappModal">
+        <div class="modal-content">
+            <div class="modal-icon">💚</div>
+            <h2 class="modal-title">Join Our WhatsApp Channel!</h2>
+            <p class="modal-text">
+                To access PurposeTest for FREE, please follow our WhatsApp channel. 
+                Get exam tips, updates, and study materials! 📚✨
+            </p>
+            <button class="whatsapp-btn" onclick="followChannel()">
+                <span style="font-size: 24px;">📱</span>
+                Follow Channel
+            </button>
+            <div class="modal-note">
+                ✅ Follow the channel, then return here<br>
+                ✅ The password will be revealed automatically<br>
+                ✅ 100% Free Forever!
+            </div>
+        </div>
+    </div>
+
+    <!-- Checking Overlay -->
+    <div class="checking-overlay" id="checkingOverlay" style="display: none;">
+        <div class="checking-content">
+            <div class="spinner"></div>
+            <div class="checking-text">Checking if you've joined...</div>
+        </div>
+    </div>
+
+    <!-- Password Reveal Notification -->
+    <div class="password-reveal" id="passwordReveal">
+        <div class="reveal-header">
+            <span class="reveal-icon">🎉</span>
+            <span class="reveal-title">Access Granted!</span>
+        </div>
+        <div class="reveal-password">
+            <div class="password-label">Your Password:</div>
+            <div class="password-value">purposetest</div>
+        </div>
+        <div class="reveal-note">Use this password to login below 👇</div>
+    </div>
+
+    <!-- Login Form -->
     <div class="login-container">
         <div class="logo-section">
             <h1>PurposeTest</h1>
@@ -185,8 +444,57 @@
     </div>
 
     <script>
+        // Check if user has already followed
+        const hasFollowed = localStorage.getItem('hasFollowedChannel');
+        const whatsappModal = document.getElementById('whatsappModal');
+        const checkingOverlay = document.getElementById('checkingOverlay');
+        const passwordReveal = document.getElementById('passwordReveal');
+
+        // WhatsApp channel link - REPLACE WITH YOUR ACTUAL CHANNEL LINK
+        const WHATSAPP_CHANNEL_LINK = 'https://whatsapp.com/channel/0029VbAtdwfIHphMo9GTmn3i';
+
+        // Show modal if not followed
+        if (!hasFollowed) {
+            whatsappModal.style.display = 'flex';
+        } else {
+            whatsappModal.style.display = 'none';
+        }
+
+        // Follow channel function
+        function followChannel() {
+            // Open WhatsApp channel in new tab
+            window.open(WHATSAPP_CHANNEL_LINK, '_blank');
+            
+            // Hide modal and show checking overlay
+            whatsappModal.style.display = 'none';
+            checkingOverlay.style.display = 'flex';
+            
+            // Simulate checking (3 seconds)
+            setTimeout(() => {
+                checkingOverlay.style.display = 'none';
+                
+                // Mark as followed
+                localStorage.setItem('hasFollowedChannel', 'true');
+                
+                // Show password reveal
+                passwordReveal.classList.add('show');
+                
+                // Hide password reveal after 5 seconds
+                setTimeout(() => {
+                    passwordReveal.classList.remove('show');
+                }, 5000);
+            }, 3000);
+        }
+
+        // Login form submission
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Check if user has followed
+            if (!localStorage.getItem('hasFollowedChannel')) {
+                whatsappModal.style.display = 'flex';
+                return;
+            }
             
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
@@ -195,7 +503,16 @@
                 localStorage.setItem('username', username);
                 window.location.href = 'select-course.html';
             } else {
-                alert('Invalid password! Please try again.');
+                // Create a temporary error message
+                const passwordInput = document.getElementById('password');
+                passwordInput.style.borderColor = 'rgba(239, 68, 68, 0.8)';
+                passwordInput.value = '';
+                passwordInput.placeholder = '❌ Incorrect password!';
+                
+                setTimeout(() => {
+                    passwordInput.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                    passwordInput.placeholder = 'Enter your password';
+                }, 2000);
             }
         });
 
@@ -205,6 +522,19 @@
                 e.preventDefault();
             }
         }, { passive: false });
+
+        // Optional: Add keyboard shortcut to show password (for testing)
+        // Press Ctrl + Shift + P to reveal password without following
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+                localStorage.setItem('hasFollowedChannel', 'true');
+                whatsappModal.style.display = 'none';
+                passwordReveal.classList.add('show');
+                setTimeout(() => {
+                    passwordReveal.classList.remove('show');
+                }, 5000);
+            }
+        });
     </script>
 </body>
 </html>
