@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PurposeTest - Arts Exam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .exam-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .exam-header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .exam-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .timer {
+            background: rgba(239, 68, 68, 0.3);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+        }
+
+        /* Question Area */
+        .question-section {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .question-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .subject-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .question-text {
+            color: white;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .passage-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid rgba(59, 130, 246, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .passage-title {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .passage-text {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 15px;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .option-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .option-item.selected {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .option-item:active {
+            transform: scale(0.99);
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-previous {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.98);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Question Navigator */
+        .question-navigator {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .nav-title {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+            gap: 8px;
+        }
+
+        .q-number {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .q-number.answered {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .q-number.current {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .q-number:active {
+            transform: scale(0.95);
+        }
+
+        /* Calculator Button */
+        .calc-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.2s ease;
+        }
+
+        .calc-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .exam-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .exam-info {
+                width: 100%;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+
+            .question-section {
+                padding: 15px;
+            }
+
+            .question-container {
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 16px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .question-grid {
+                grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            }
+
+            .q-number {
+                width: 40px;
+                height: 40px;
+                font-size: 13px;
+            }
+
+            .calc-btn {
+                width: 55px;
+                height: 55px;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="exam-container">
+        <!-- Header -->
+        <div class="exam-header">
+            <div class="exam-info">
+                <div class="info-item">
+                    <span>👤</span>
+                    <span id="studentName">Student</span>
+                </div>
+                <div class="info-item">
+                    <span>📝</span>
+                    <span id="totalQuestions">0</span> Questions
+                </div>
+            </div>
+            <div class="info-item timer" id="timer">
+                ⏱️ <span id="timeDisplay">00:00</span>
+            </div>
+        </div>
+
+        <!-- Question Section -->
+        <div class="question-section">
+            <div class="question-container">
+                <span class="subject-badge" id="currentSubject">Loading...</span>
+                <div class="question-number" id="questionNumber">Question 1 of 10</div>
+                
+                <div id="passageContainer" style="display: none;">
+                    <div class="passage-box">
+                        <div class="passage-title">Read the passage below and answer the questions:</div>
+                        <div class="passage-text" id="passageText"></div>
+                    </div>
+                </div>
+
+                <div class="question-text" id="questionText">Loading question...</div>
+
+                <ul class="options-list" id="optionsList">
+                    <!-- Options will be populated here -->
+                </ul>
+
+                <div class="nav-buttons">
+                    <button class="nav-btn btn-previous" id="prevBtn" onclick="previousQuestion()">← Previous</button>
+                    <button class="nav-btn btn-next" id="nextBtn" onclick="nextQuestion()">Next →</button>
+                    <button class="nav-btn btn-submit" id="submitBtn" style="display: none;" onclick="submitExam()">Submit Exam</button>
+                </div>
+
+                <!-- Question Navigator -->
+                <div class="question-navigator">
+                    <div class="nav-title">Question Navigator</div>
+                    <div class="question-grid" id="questionGrid">
+                        <!-- Question numbers will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator Button -->
+    <button class="calc-btn" onclick="openCalculator()">🔢</button>
+
+    <script>
+        // Get exam config and user data
+        const username = localStorage.getItem('username') || 'Student';
+        const examConfig = JSON.parse(localStorage.getItem('examConfig'));
+        
+        if (!examConfig) {
+            window.location.href = 'select-course.html';
+        }
+
+        document.getElementById('studentName').textContent = username;
+
+        // ARTS QUESTION BANK
+        const questionBank = {
+            "English": [
+                // COMPREHENSION PASSAGE 1 (Same as Science - it's general English)
+                {
+                    type: "passage",
+                    passage: "The rapid advancement of technology has fundamentally transformed the way we communicate, work, and live. Social media platforms have connected billions of people across the globe, enabling instant communication and the sharing of ideas. However, this digital revolution has also raised concerns about privacy, mental health, and the spread of misinformation. As we navigate this new landscape, it is crucial to strike a balance between embracing innovation and protecting our well-being.",
+                    questions: [
+                        {
+                            question: "According to the passage, what has technology primarily transformed?",
+                            options: ["Education systems", "Communication, work, and lifestyle", "Transportation", "Agriculture"],
+                            answer: 1
+                        },
+                        {
+                            question: "What concern is NOT mentioned in the passage?",
+                            options: ["Privacy issues", "Mental health", "Environmental impact", "Misinformation"],
+                            answer: 2
+                        },
+                        {
+                            question: "What does the passage suggest we should do?",
+                            options: ["Reject all technology", "Balance innovation with well-being", "Focus only on privacy", "Limit social media use"],
+                            answer: 1
+                        },
+                        {
+                            question: "The word 'navigate' in the passage most closely means:",
+                            options: ["Avoid", "Manage or deal with", "Reject", "Accelerate"],
+                            answer: 1
+                        },
+                        {
+                            question: "Social media has enabled people to:",
+                            options: ["Work from home only", "Share ideas instantly globally", "Avoid communication", "Reduce technology use"],
+                            answer: 1
+                        }
+                    ]
+                },
+                // COMPREHENSION PASSAGE 2 (Same as Science - it's general English)
+                {
+                    type: "passage",
+                    passage: "Climate change represents one of the most pressing challenges of our time. Rising global temperatures, melting ice caps, and extreme weather events are clear indicators of environmental degradation. Scientists warn that without immediate and collective action, the consequences will be irreversible. Governments, businesses, and individuals must work together to reduce carbon emissions, protect natural habitats, and transition to renewable energy sources. The future of our planet depends on the decisions we make today.",
+                    questions: [
+                        {
+                            question: "What is described as 'one of the most pressing challenges'?",
+                            options: ["Economic recession", "Climate change", "Political instability", "Technology addiction"],
+                            answer: 1
+                        },
+                        {
+                            question: "According to scientists, what will happen without immediate action?",
+                            options: ["Temperatures will stabilize", "Consequences will be irreversible", "Weather will improve", "Ice caps will reform"],
+                            answer: 1
+                        },
+                        {
+                            question: "Who must work together according to the passage?",
+                            options: ["Only governments", "Only scientists", "Governments, businesses, and individuals", "Only environmental groups"],
+                            answer: 2
+                        },
+                        {
+                            question: "Which is NOT mentioned as a solution in the passage?",
+                            options: ["Reducing carbon emissions", "Protecting natural habitats", "Building more factories", "Transitioning to renewable energy"],
+                            answer: 2
+                        },
+                        {
+                            question: "The passage suggests that the future of the planet depends on:",
+                            options: ["Past mistakes", "Current decisions", "Future technology", "Natural processes"],
+                            answer: 1
+                        }
+                    ]
+                },
+                // REGULAR ENGLISH QUESTIONS (30 - Same as Science)
+                {
+                    question: "Choose the word that best completes the sentence: The teacher was _____ with the student's performance.",
+                    options: ["pleased", "pleasing", "pleasure", "pleasant"],
+                    answer: 0
+                },
+                {
+                    question: "Identify the correct spelling:",
+                    options: ["Occassion", "Occasion", "Ocasion", "Occation"],
+                    answer: 1
+                },
+                {
+                    question: "What is the synonym of 'meticulous'?",
+                    options: ["Careless", "Careful", "Quick", "Lazy"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the correct form: Neither the teacher nor the students _____ present.",
+                    options: ["was", "were", "is", "are"],
+                    answer: 1
+                },
+                {
+                    question: "What is the antonym of 'abundant'?",
+                    options: ["Plentiful", "Scarce", "Numerous", "Multiple"],
+                    answer: 1
+                },
+                {
+                    question: "Identify the figure of speech: 'The classroom was a zoo.'",
+                    options: ["Simile", "Metaphor", "Personification", "Hyperbole"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the correct preposition: She is good _____ mathematics.",
+                    options: ["in", "at", "on", "with"],
+                    answer: 1
+                },
+                {
+                    question: "What type of sentence is this: 'Stop talking!'",
+                    options: ["Declarative", "Interrogative", "Imperative", "Exclamatory"],
+                    answer: 2
+                },
+                {
+                    question: "Identify the part of speech for 'quickly' in: 'She ran quickly.'",
+                    options: ["Noun", "Verb", "Adjective", "Adverb"],
+                    answer: 3
+                },
+                {
+                    question: "Choose the correct article: He is _____ honest man.",
+                    options: ["a", "an", "the", "no article"],
+                    answer: 1
+                },
+                {
+                    question: "What is the past tense of 'bring'?",
+                    options: ["Bringed", "Brought", "Brung", "Brang"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the word closest in meaning to 'frivolous':",
+                    options: ["Serious", "Trivial", "Important", "Grave"],
+                    answer: 1
+                },
+                {
+                    question: "Identify the clause type: 'Because it was raining'",
+                    options: ["Independent", "Dependent", "Noun", "Relative"],
+                    answer: 1
+                },
+                {
+                    question: "What is the plural of 'criterion'?",
+                    options: ["Criterions", "Criteria", "Criterias", "Criterion"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the correct pronoun: Between you and _____, I think he's wrong.",
+                    options: ["I", "me", "myself", "mine"],
+                    answer: 1
+                },
+                {
+                    question: "What does the idiom 'break the ice' mean?",
+                    options: ["To start a conversation", "To freeze something", "To break glass", "To be cold"],
+                    answer: 0
+                },
+                {
+                    question: "Identify the tense: 'I have been studying for three hours.'",
+                    options: ["Present perfect", "Present continuous", "Present perfect continuous", "Past perfect"],
+                    answer: 2
+                },
+                {
+                    question: "Choose the correct conjunction: I will go _____ you come with me.",
+                    options: ["if", "but", "or", "so"],
+                    answer: 0
+                },
+                {
+                    question: "What is the feminine of 'bachelor'?",
+                    options: ["Bachelorette", "Spinster", "Maiden", "Miss"],
+                    answer: 1
+                },
+                {
+                    question: "Identify the literary device: 'The stars danced in the sky.'",
+                    options: ["Simile", "Metaphor", "Personification", "Alliteration"],
+                    answer: 2
+                },
+                {
+                    question: "Choose the correctly punctuated sentence:",
+                    options: ["It's a beautiful day", "Its a beautiful day", "Its' a beautiful day", "It,s a beautiful day"],
+                    answer: 0
+                },
+                {
+                    question: "What is the collective noun for 'lions'?",
+                    options: ["Pack", "Pride", "Herd", "Flock"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the word with the correct prefix: To write again",
+                    options: ["Unwrite", "Prewrite", "Rewrite", "Diswrite"],
+                    answer: 2
+                },
+                {
+                    question: "Identify the voice: 'The cake was eaten by John.'",
+                    options: ["Active", "Passive", "Neutral", "Subjunctive"],
+                    answer: 1
+                },
+                {
+                    question: "What does 'bibliography' mean?",
+                    options: ["Study of books", "List of books", "Book writing", "Book selling"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the correct comparative form: 'good'",
+                    options: ["Gooder", "More good", "Better", "Best"],
+                    answer: 2
+                },
+                {
+                    question: "What is a homophone of 'their'?",
+                    options: ["There", "They", "Them", "These"],
+                    answer: 0
+                },
+                {
+                    question: "Identify the sentence type: 'What a wonderful day!'",
+                    options: ["Declarative", "Interrogative", "Imperative", "Exclamatory"],
+                    answer: 3
+                },
+                {
+                    question: "Choose the correct word: He has _____ friends than I do.",
+                    options: ["less", "fewer", "lesser", "few"],
+                    answer: 1
+                },
+                {
+                    question: "What does the prefix 'anti-' mean?",
+                    options: ["For", "Against", "Before", "After"],
+                    answer: 1
+                }
+            ],
+
+            "Literature": [
+                {
+                    question: "Who wrote 'Things Fall Apart'?",
+                    options: ["Wole Soyinka", "Chinua Achebe", "Chimamanda Adichie", "Ben Okri"],
+                    answer: 1
+                },
+                {
+                    question: "A story passed down through generations orally is called:",
+                    options: ["Novel", "Folktale", "Biography", "Essay"],
+                    answer: 1
+                },
+                {
+                    question: "The main character in a story is called the:",
+                    options: ["Antagonist", "Protagonist", "Narrator", "Author"],
+                    answer: 1
+                },
+                {
+                    question: "What is a metaphor?",
+                    options: ["Direct comparison using 'like' or 'as'", "Indirect comparison without 'like' or 'as'", "Exaggeration", "Human qualities to non-human things"],
+                    answer: 1
+                },
+                {
+                    question: "Shakespeare wrote primarily in which literary period?",
+                    options: ["Victorian", "Elizabethan", "Romantic", "Modern"],
+                    answer: 1
+                },
+                {
+                    question: "What is the climax of a story?",
+                    options: ["The beginning", "The turning point", "The resolution", "The introduction"],
+                    answer: 1
+                },
+                {
+                    question: "A 14-line poem is called a:",
+                    options: ["Haiku", "Sonnet", "Limerick", "Ballad"],
+                    answer: 1
+                },
+                {
+                    question: "The mood or feeling in a literary work is called:",
+                    options: ["Theme", "Tone", "Atmosphere", "Plot"],
+                    answer: 2
+                },
+                {
+                    question: "Who wrote 'The Lion and The Jewel'?",
+                    options: ["Chinua Achebe", "Wole Soyinka", "Amos Tutuola", "Flora Nwapa"],
+                    answer: 1
+                },
+                {
+                    question: "An indirect reference to another work is called:",
+                    options: ["Simile", "Allusion", "Imagery", "Symbolism"],
+                    answer: 1
+                },
+                {
+                    question: "What is the setting of a story?",
+                    options: ["The characters", "The time and place", "The conflict", "The theme"],
+                    answer: 1
+                },
+                {
+                    question: "A long narrative poem about heroic deeds is called:",
+                    options: ["Ode", "Epic", "Elegy", "Lyric"],
+                    answer: 1
+                },
+                {
+                    question: "The repetition of consonant sounds at the beginning of words is:",
+                    options: ["Assonance", "Consonance", "Alliteration", "Onomatopoeia"],
+                    answer: 2
+                },
+                {
+                    question: "What is irony?",
+                    options: ["Exaggeration", "Comparison", "Opposite of what is expected", "Repetition"],
+                    answer: 2
+                },
+                {
+                    question: "A play on words with similar sounds but different meanings is:",
+                    options: ["Pun", "Paradox", "Oxymoron", "Hyperbole"],
+                    answer: 0
+                },
+                {
+                    question: "The narrator who knows everything about all characters is:",
+                    options: ["First person", "Second person", "Third person limited", "Third person omniscient"],
+                    answer: 3
+                },
+                {
+                    question: "A type of literature that teaches a moral lesson is:",
+                    options: ["Tragedy", "Comedy", "Fable", "Romance"],
+                    answer: 2
+                },
+                {
+                    question: "Shakespeare's 'Romeo and Juliet' is an example of:",
+                    options: ["Comedy", "Tragedy", "Epic", "Satire"],
+                    answer: 1
+                },
+                {
+                    question: "The use of symbols to represent ideas is called:",
+                    options: ["Imagery", "Symbolism", "Metaphor", "Allegory"],
+                    answer: 1
+                },
+                {
+                    question: "A poem that mourns the death of someone is:",
+                    options: ["Ode", "Sonnet", "Elegy", "Ballad"],
+                    answer: 2
+                }
+            ],
+
+            "Government": [
+                {
+                    question: "The supreme law of a country is called:",
+                    options: ["Act", "Constitution", "Decree", "Policy"],
+                    answer: 1
+                },
+                {
+                    question: "A system of government where power is divided between central and regional governments is:",
+                    options: ["Unitary", "Federal", "Confederal", "Presidential"],
+                    answer: 1
+                },
+                {
+                    question: "The principle of separation of powers divides government into:",
+                    options: ["Two arms", "Three arms", "Four arms", "Five arms"],
+                    answer: 1
+                },
+                {
+                    question: "The arm of government that makes laws is:",
+                    options: ["Executive", "Legislature", "Judiciary", "Civil service"],
+                    answer: 1
+                },
+                {
+                    question: "Democracy means:",
+                    options: ["Rule by the rich", "Rule by the military", "Rule by the people", "Rule by one person"],
+                    answer: 2
+                },
+                {
+                    question: "The head of state in a presidential system is:",
+                    options: ["Prime Minister", "President", "Monarch", "Governor"],
+                    answer: 1
+                },
+                {
+                    question: "Universal adult suffrage means:",
+                    options: ["Only men can vote", "Only educated people can vote", "All adults can vote", "Only property owners can vote"],
+                    answer: 2
+                },
+                {
+                    question: "The process of choosing leaders through voting is called:",
+                    options: ["Selection", "Election", "Appointment", "Nomination"],
+                    answer: 1
+                },
+                {
+                    question: "A system where the head of government is the Prime Minister is:",
+                    options: ["Presidential", "Parliamentary", "Monarchical", "Federal"],
+                    answer: 1
+                },
+                {
+                    question: "The United Nations was founded in:",
+                    options: ["1918", "1939", "1945", "1960"],
+                    answer: 2
+                },
+                {
+                    question: "Nigeria operates which system of government?",
+                    options: ["Unitary", "Federal", "Confederal", "Parliamentary"],
+                    answer: 1
+                },
+                {
+                    question: "The concept of rule of law means:",
+                    options: ["Leaders are above the law", "Everyone is equal before the law", "Laws can be changed anytime", "Only judges make laws"],
+                    answer: 1
+                },
+                {
+                    question: "A political party is:",
+                    options: ["A social club", "An organization seeking political power", "A religious group", "A trade union"],
+                    answer: 1
+                },
+                {
+                    question: "The judiciary interprets the:",
+                    options: ["Budget", "Constitution and laws", "Policies", "Elections"],
+                    answer: 1
+                },
+                {
+                    question: "Checks and balances ensures:",
+                    options: ["One arm dominates", "All arms cooperate", "No arm abuses power", "The president has all power"],
+                    answer: 2
+                },
+                {
+                    question: "A referendum is:",
+                    options: ["Appointment of judges", "Direct vote by citizens on an issue", "Presidential decree", "Court judgment"],
+                    answer: 1
+                },
+                {
+                    question: "The Economic Community of West African States (ECOWAS) was formed in:",
+                    options: ["1960", "1975", "1980", "1990"],
+                    answer: 1
+                },
+                {
+                    question: "Fundamental human rights are rights that:",
+                    options: ["Can be taken away", "Are earned through hard work", "Are inherent to all humans", "Only citizens have"],
+                    answer: 2
+                },
+                {
+                    question: "Federalism promotes:",
+                    options: ["Centralization", "Decentralization", "Dictatorship", "Monarchy"],
+                    answer: 1
+                },
+                {
+                    question: "The civil service is part of the:",
+                    options: ["Legislature", "Judiciary", "Executive", "Political parties"],
+                    answer: 2
+                }
+            ],
+
+            "Commerce": [
+                {
+                    question: "Commerce is primarily concerned with:",
+                    options: ["Production", "Distribution and exchange", "Consumption", "Storage"],
+                    answer: 1
+                },
+                {
+                    question: "A person who buys goods for resale is called a:",
+                    options: ["Consumer", "Trader", "Producer", "Manufacturer"],
+                    answer: 1
+                },
+                {
+                    question: "The movement of goods from producer to consumer is:",
+                    options: ["Production", "Distribution", "Consumption", "Manufacturing"],
+                    answer: 1
+                },
+                {
+                    question: "A wholesaler sells to:",
+                    options: ["Consumers only", "Retailers", "Manufacturers", "Government"],
+                    answer: 1
+                },
+                {
+                    question: "E-commerce refers to:",
+                    options: ["Traditional trading", "Electronic trading", "Wholesale trading", "Retail trading"],
+                    answer: 1
+                },
+                {
+                    question: "A cheque is an example of:",
+                    options: ["Legal tender", "Near money", "Commodity money", "Fiat money"],
+                    answer: 1
+                },
+                {
+                    question: "The central bank of Nigeria is:",
+                    options: ["First Bank", "CBN", "UBA", "GTBank"],
+                    answer: 1
+                },
+                {
+                    question: "Insurance provides protection against:",
+                    options: ["Profit", "Risk and uncertainty", "Competition", "Taxation"],
+                    answer: 1
+                },
+                {
+                    question: "A document requesting payment for goods supplied is:",
+                    options: ["Receipt", "Invoice", "Cheque", "Statement"],
+                    answer: 1
+                },
+                {
+                    question: "The abbreviation 'Ltd' stands for:",
+                    options: ["Limited", "Latitude", "Latest", "Licensed"],
+                    answer: 0
+                },
+                {
+                    question: "Import means:",
+                    options: ["Selling goods abroad", "Buying goods from abroad", "Storing goods", "Manufacturing goods"],
+                    answer: 1
+                },
+                {
+                    question: "A bill of lading is used in:",
+                    options: ["Air transport", "Sea transport", "Road transport", "Rail transport"],
+                    answer: 1
+                },
+                {
+                    question: "The stock exchange deals in:",
+                    options: ["Goods", "Securities", "Services", "Land"],
+                    answer: 1
+                },
+                {
+                    question: "A partnership has a maximum of:",
+                    options: ["10 partners", "20 partners", "50 partners", "100 partners"],
+                    answer: 1
+                },
+                {
+                    question: "Marketing is concerned with:",
+                    options: ["Production only", "Selling and distribution", "Manufacturing", "Storage"],
+                    answer: 1
+                },
+                {
+                    question: "A current account is used for:",
+                    options: ["Savings", "Regular transactions", "Fixed deposits", "Loans"],
+                    answer: 1
+                },
+                {
+                    question: "The document of ownership of goods being transported is:",
+                    options: ["Invoice", "Waybill", "Receipt", "Consignment note"],
+                    answer: 1
+                },
+                {
+                    question: "Credit means:",
+                    options: ["Immediate payment", "Deferred payment", "No payment", "Partial payment"],
+                    answer: 1
+                },
+                {
+                    question: "A monopoly exists when:",
+                    options: ["Many sellers exist", "Few sellers exist", "One seller dominates", "No sellers exist"],
+                    answer: 2
+                },
+                {
+                    question: "The person who starts a business is called:",
+                    options: ["Manager", "Entrepreneur", "Accountant", "Supervisor"],
+                    answer: 1
+                }
+            ],
+
+            "Accounting": [
+                {
+                    question: "The book of original entry is also called:",
+                    options: ["Ledger", "Journal", "Cash book", "Trial balance"],
+                    answer: 1
+                },
+                {
+                    question: "Assets minus liabilities equals:",
+                    options: ["Profit", "Capital", "Revenue", "Expenses"],
+                    answer: 1
+                },
+                {
+                    question: "A debit entry increases:",
+                    options: ["Liabilities", "Assets", "Income", "Capital"],
+                    answer: 1
+                },
+                {
+                    question: "The accounting equation is:",
+                    options: ["Assets = Liabilities", "Assets = Capital", "Assets = Liabilities + Capital", "Assets = Revenue"],
+                    answer: 2
+                },
+                {
+                    question: "Depreciation is:",
+                    options: ["Increase in asset value", "Decrease in asset value", "Purchase of assets", "Sale of assets"],
+                    answer: 1
+                },
+                {
+                    question: "Double entry bookkeeping means:",
+                    options: ["Recording once", "Recording twice", "Recording three times", "Not recording"],
+                    answer: 1
+                },
+                {
+                    question: "A trial balance is prepared to check:",
+                    options: ["Profit", "Arithmetic accuracy", "Cash balance", "Asset value"],
+                    answer: 1
+                },
+                {
+                    question: "Revenue expenditure is:",
+                    options: ["Buying fixed assets", "Day-to-day expenses", "Long-term investment", "Capital injection"],
+                    answer: 1
+                },
+                {
+                    question: "The trading account shows:",
+                    options: ["Net profit", "Gross profit", "Total assets", "Total liabilities"],
+                    answer: 1
+                },
+                {
+                    question: "Goodwill is an example of:",
+                    options: ["Current asset", "Fixed asset", "Intangible asset", "Current liability"],
+                    answer: 2
+                },
+                {
+                    question: "Bad debts are debts that:",
+                    options: ["Will be paid", "Cannot be collected", "Are postponed", "Are partial"],
+                    answer: 1
+                },
+                {
+                    question: "Accrued expenses are expenses:",
+                    options: ["Paid in advance", "Due but not yet paid", "Not due", "Cancelled"],
+                    answer: 1
+                },
+                {
+                    question: "The bank reconciliation statement reconciles:",
+                    options: ["Cash book and bank statement", "Two cash books", "Two bank statements", "Ledger and journal"],
+                    answer: 0
+                },
+                {
+                    question: "Prepaid expenses are shown as:",
+                    options: ["Liabilities", "Assets", "Expenses", "Income"],
+                    answer: 1
+                },
+                {
+                    question: "Working capital is:",
+                    options: ["Fixed assets", "Current assets - Current liabilities", "Total assets", "Total capital"],
+                    answer: 1
+                },
+                {
+                    question: "The balance sheet shows:",
+                    options: ["Profit or loss", "Financial position", "Cash flow", "Sales"],
+                    answer: 1
+                },
+                {
+                    question: "A creditor is someone who:",
+                    options: ["Owes the business", "The business owes", "Buys from the business", "Sells to consumers"],
+                    answer: 1
+                },
+                {
+                    question: "Drawings represent:",
+                    options: ["Business income", "Owner's withdrawals", "Business expenses", "Business assets"],
+                    answer: 1
+                },
+                {
+                    question: "The petty cash book records:",
+                    options: ["Large payments", "Small payments", "Credit transactions", "Fixed assets"],
+                    answer: 1
+                },
+                {
+                    question: "Capital expenditure is for:",
+                    options: ["Day-to-day expenses", "Purchasing fixed assets", "Paying salaries", "Buying stock"],
+                    answer: 1
+                }
+            ],
+
+            "CRS": [
+                {
+                    question: "The first book of the Bible is:",
+                    options: ["Exodus", "Genesis", "Leviticus", "Numbers"],
+                    answer: 1
+                },
+                {
+                    question: "How many books are in the New Testament?",
+                    options: ["27", "39", "66", "73"],
+                    answer: 0
+                },
+                {
+                    question: "Who was the first man created by God?",
+                    options: ["Abraham", "Moses", "Adam", "Noah"],
+                    answer: 2
+                },
+                {
+                    question: "The Ten Commandments were given to:",
+                    options: ["Abraham", "Moses", "David", "Solomon"],
+                    answer: 1
+                },
+                {
+                    question: "Jesus was born in:",
+                    options: ["Jerusalem", "Nazareth", "Bethlehem", "Galilee"],
+                    answer: 2
+                },
+                {
+                    question: "The shortest verse in the Bible is:",
+                    options: ["God is love", "Jesus wept", "Pray always", "Be holy"],
+                    answer: 1
+                },
+                {
+                    question: "How many disciples did Jesus have?",
+                    options: ["10", "12", "7", "70"],
+                    answer: 1
+                },
+                {
+                    question: "The last book of the Bible is:",
+                    options: ["Jude", "Revelation", "John", "Acts"],
+                    answer: 1
+                },
+                {
+                    question: "Who baptized Jesus?",
+                    options: ["Peter", "John the Baptist", "James", "Andrew"],
+                    answer: 1
+                },
+                {
+                    question: "The fruit of the Spirit includes:",
+                    options: ["Love, joy, peace", "Wealth, power, fame", "Knowledge, wisdom, understanding", "Strength, courage, boldness"],
+                    answer: 0
+                },
+                {
+                    question: "David killed Goliath with:",
+                    options: ["A sword", "A spear", "A sling and stone", "An arrow"],
+                    answer: 2
+                },
+                {
+                    question: "Noah's ark was made of:",
+                    options: ["Stone", "Metal", "Gopher wood", "Clay"],
+                    answer: 2
+                },
+                {
+                    question: "The first miracle of Jesus was:",
+                    options: ["Healing the blind", "Walking on water", "Turning water to wine", "Feeding five thousand"],
+                    answer: 2
+                },
+                {
+                    question: "Who betrayed Jesus?",
+                    options: ["Peter", "Judas", "Thomas", "Matthew"],
+                    answer: 1
+                },
+                {
+                    question: "The Lord's Prayer begins with:",
+                    options: ["Give us this day", "Forgive us our sins", "Our Father in heaven", "Thy kingdom come"],
+                    answer: 2
+                },
+                {
+                    question: "Moses led the Israelites out of:",
+                    options: ["Babylon", "Egypt", "Assyria", "Persia"],
+                    answer: 1
+                },
+                {
+                    question: "The first four books of the New Testament are called:",
+                    options: ["Acts", "Epistles", "Gospels", "Revelations"],
+                    answer: 2
+                },
+                {
+                    question: "Who wrote most of the New Testament letters?",
+                    options: ["Peter", "Paul", "John", "James"],
+                    answer: 1
+                },
+                {
+                    question: "The parents of Jesus were:",
+                    options: ["Joseph and Mary", "Zachariah and Elizabeth", "Abraham and Sarah", "Isaac and Rebecca"],
+                    answer: 0
+                },
+                {
+                    question: "The Holy Spirit descended on Jesus like a:",
+                    options: ["Eagle", "Dove", "Raven", "Sparrow"],
+                    answer: 1
+                }
+            ]
+        };
+
+        // Question distribution (same logic as science exam)
+        function distributeQuestions(subjects, questionsPerSubject) {
+            let allQuestions = [];
+            
+            subjects.forEach(subject => {
+                const subjectQuestions = questionBank[subject];
+                let subjectSelectedQuestions = [];
+                
+                if (subject === "English") {
+                    const passages = subjectQuestions.filter(q => q.type === "passage");
+                    const regularQuestions = subjectQuestions.filter(q => !q.type);
+                    
+                    passages.forEach(passage => {
+                        passage.questions.forEach(q => {
+                            subjectSelectedQuestions.push({
+                                subject: subject,
+                                passage: passage.passage,
+                                ...q
+                            });
+                        });
+                    });
+                    
+                    const remaining = questionsPerSubject - subjectSelectedQuestions.length;
+                    if (remaining > 0) {
+                        const shuffled = [...regularQuestions].sort(() => 0.5 - Math.random());
+                        for (let i = 0; i < Math.min(remaining, shuffled.length); i++) {
+                            subjectSelectedQuestions.push({
+                                subject: subject,
+                                ...shuffled[i]
+                            });
+                        }
+                    }
+                    
+                    allQuestions.push(...subjectSelectedQuestions.slice(0, questionsPerSubject));
+                    
+                } else {
+                    const shuffled = [...subjectQuestions].sort(() => 0.5 - Math.random());
+                    const selected = shuffled.slice(0, questionsPerSubject);
+                    
+                    selected.forEach(q => {
+                        allQuestions.push({
+                            subject: subject,
+                            ...q
+                        });
+                    });
+                }
+            });
+            
+            return allQuestions;
+        }
+
+        // Initialize exam
+        let questions = distributeQuestions(examConfig.subjects, examConfig.questionsPerSubject);
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let timeRemaining = examConfig.timeLimit * 60;
+
+        document.getElementById('totalQuestions').textContent = questions.length;
+
+        // Display question
+        function displayQuestion() {
+            const q = questions[currentQuestionIndex];
+            
+            document.getElementById('currentSubject').textContent = q.subject;
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            
+            if (q.passage) {
+                document.getElementById('passageContainer').style.display = 'block';
+                document.getElementById('passageText').textContent = q.passage;
+            } else {
+                document.getElementById('passageContainer').style.display = 'none';
+            }
+            
+            document.getElementById('questionText').textContent = q.question;
+            
+            const optionsList = document.getElementById('optionsList');
+            optionsList.innerHTML = '';
+            
+            q.options.forEach((option, index) => {
+                const li = document.createElement('li');
+                li.className = 'option-item';
+                if (userAnswers[currentQuestionIndex] === index) {
+                    li.classList.add('selected');
+                }
+                li.textContent = option;
+                li.onclick = () => selectOption(index);
+                optionsList.appendChild(li);
+            });
+            
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('submitBtn').style.display = 'block';
+            } else {
+                document.getElementById('nextBtn').style.display = 'block';
+                document.getElementById('submitBtn').style.display = 'none';
+            }
+            
+            updateQuestionGrid();
+        }
+
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            displayQuestion();
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        function jumpToQuestion(index) {
+            currentQuestionIndex = index;
+            displayQuestion();
+        }
+
+        function updateQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.className = 'q-number';
+                div.textContent = index + 1;
+                
+                if (userAnswers[index] !== null) {
+                    div.classList.add('answered');
+                }
+                if (index === currentQuestionIndex) {
+                    div.classList.add('current');
+                }
+                
+                div.onclick = () => jumpToQuestion(index);
+                grid.appendChild(div);
+            });
+        }
+
+        function startTimer() {
+            const timerInterval = setInterval(() => {
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                    return;
+                }
+                
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById('timeDisplay').textContent = 
+                    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function submitExam() {
+            let correct = 0;
+            questions.forEach((q, index) => {
+                if (userAnswers[index] === q.answer) {
+                    correct++;
+                }
+            });
+            
+            const score = Math.round((correct / questions.length) * 100);
+            
+            const result = {
+                username: username,
+                subjects: examConfig.subjects.join(', '),
+                totalQuestions: questions.length,
+                correctAnswers: correct,
+                score: score,
+                date: new Date().toLocaleString()
+            };
+            
+            localStorage.setItem('lastExamResult', JSON.stringify(result));
+            localStorage.setItem('examQuestions', JSON.stringify(questions));
+            localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+            
+            const stats = JSON.parse(localStorage.getItem('userStats')) || {
+                totalExams: 0,
+                avgScore: 0,
+                bestScore: 0,
+                totalTime: 0
+            };
+            
+            stats.totalExams++;
+            stats.avgScore = Math.round(((stats.avgScore * (stats.totalExams - 1)) + score) / stats.totalExams);
+            stats.bestScore = Math.max(stats.bestScore, score);
+            stats.totalTime += Math.round(examConfig.timeLimit / 60);
+            
+            localStorage.setItem('userStats', JSON.stringify(stats));
+            
+            window.location.href = 'results.html';
+        }
+
+        function openCalculator() {
+            const result = prompt('Simple Calculator\n\nEnter your calculation (e.g., 2+2, 10*5, 100/4):');
+            if (result) {
+                try {
+                    const answer = eval(result);
+                    alert(`Result: ${answer}`);
+                } catch (e) {
+                    alert('Invalid calculation!');
+                }
+            }
+        }
+
+        displayQuestion();
+        updateQuestionGrid();
+        startTimer();
+
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = 'Are you sure you want to leave? Your exam progress will be lost.';
+        });
+    </script>
+</body>
+</html>

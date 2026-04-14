@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PurposeTest - Exam Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: fixed;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overscroll-behavior: none;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            padding-top: 30px;
+            padding-bottom: 40px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .results-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .results-header h1 {
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .results-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+        }
+
+        /* Score Card */
+        .score-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            margin-bottom: 25px;
+        }
+
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #10b981 0deg,
+                #10b981 var(--score-deg),
+                rgba(255, 255, 255, 0.2) var(--score-deg)
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .score-value {
+            position: relative;
+            z-index: 1;
+            color: white;
+            font-size: 48px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .score-percent {
+            font-size: 24px;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .grade-A { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .grade-B { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+        .grade-C { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .grade-D { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+        .grade-F { background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%); }
+
+        .grade-message {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .grade-description {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(31, 38, 135, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Mistakes Section */
+        .mistakes-section {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .section-title {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .mistakes-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .mistakes-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .mistakes-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .mistakes-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .mistake-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #ef4444;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .mistake-question-num {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .mistake-subject {
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.3);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: white;
+            margin-left: 8px;
+        }
+
+        .mistake-question {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .mistake-answers {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .answer-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .answer-label {
+            color: rgba(255, 255, 255, 0.7);
+            min-width: 100px;
+        }
+
+        .answer-value {
+            color: white;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 8px;
+        }
+
+        .answer-correct {
+            background: rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+        }
+
+        .answer-wrong {
+            background: rgba(239, 68, 68, 0.3);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+        }
+
+        .no-mistakes {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 40px 20px;
+            font-size: 16px;
+        }
+
+        .no-mistakes-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .action-btn {
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-retake {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-home {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Logout Section */
+        .logout-section {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .logout-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Logout Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 35px 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            color: #333;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cancel {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .results-header h1 {
+                font-size: 26px;
+            }
+
+            .score-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .score-circle::before {
+                width: 120px;
+                height: 120px;
+            }
+
+            .score-value {
+                font-size: 36px;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-wrapper {
+                padding: 15px;
+            }
+
+            .score-card {
+                padding: 30px 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-icon">🚪</div>
+            <h2 class="modal-title">Logout Confirmation</h2>
+            <p class="modal-text">Are you sure you want to logout? You'll need to login again to access your account.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn btn-cancel" onclick="closeLogoutModal()">Cancel</button>
+                <button class="modal-btn btn-confirm" onclick="confirmLogout()">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="container">
+            <!-- Results Header -->
+            <div class="results-header">
+                <div class="results-icon" id="resultsIcon">🎉</div>
+                <h1>Exam Results</h1>
+                <p id="studentName">Student</p>
+            </div>
+
+            <!-- Score Card -->
+            <div class="score-card">
+                <div class="score-circle" id="scoreCircle">
+                    <div class="score-value">
+                        <span id="scorePercent">0</span><span class="score-percent">%</span>
+                    </div>
+                </div>
+
+                <div class="grade-badge" id="gradeBadge">A</div>
+                <div class="grade-message" id="gradeMessage">Excellent Performance!</div>
+                <div class="grade-description" id="gradeDescription">You've demonstrated outstanding knowledge.</div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="correctAnswers">0</div>
+                    <div class="stat-label">Correct Answers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">❌</div>
+                    <div class="stat-value" id="wrongAnswers">0</div>
+                    <div class="stat-label">Wrong Answers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-value" id="totalQuestions">0</div>
+                    <div class="stat-label">Total Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value" id="subjectsCount">0</div>
+                    <div class="stat-label">Subjects</div>
+                </div>
+            </div>
+
+            <!-- Mistakes Section -->
+            <div class="mistakes-section">
+                <div class="section-title">
+                    📋 Review Your Mistakes
+                </div>
+                <div class="mistakes-list" id="mistakesList">
+                    <!-- Mistakes will be populated here -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-btn btn-retake" onclick="retakeExam()">
+                    🔄 Retake Exam
+                </button>
+                <button class="action-btn btn-home" onclick="goHome()">
+                    🏠 Back to Home
+                </button>
+            </div>
+
+            <!-- Logout Section -->
+            <div class="logout-section">
+                <button class="logout-btn" onclick="showLogoutModal()">
+                    🚪 Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get data from localStorage
+        const username = localStorage.getItem('username') || 'Student';
+        const lastResult = JSON.parse(localStorage.getItem('lastExamResult'));
+        const examQuestions = JSON.parse(localStorage.getItem('examQuestions'));
+        const userAnswers = JSON.parse(localStorage.getItem('userAnswers'));
+
+        if (!lastResult) {
+            window.location.href = 'select-course.html';
+        }
+
+        document.getElementById('studentName').textContent = username;
+
+        // Calculate grade
+        function calculateGrade(score) {
+            if (score >= 90) return { grade: 'A', message: 'Excellent Performance!', description: "You've demonstrated outstanding knowledge and understanding.", icon: '🎉', color: 'grade-A' };
+            if (score >= 80) return { grade: 'B', message: 'Very Good!', description: "You've shown strong grasp of the material.", icon: '👏', color: 'grade-B' };
+            if (score >= 70) return { grade: 'C', message: 'Good Job!', description: "You have a decent understanding. Keep practicing!", icon: '👍', color: 'grade-C' };
+            if (score >= 60) return { grade: 'D', message: 'Fair Performance', description: "You passed, but there's room for improvement.", icon: '📖', color: 'grade-D' };
+            return { grade: 'F', message: 'Needs Improvement', description: "Don't give up! Review the material and try again.", icon: '💪', color: 'grade-F' };
+        }
+
+        const gradeInfo = calculateGrade(lastResult.score);
+
+        // Display results
+        document.getElementById('scorePercent').textContent = lastResult.score;
+        document.getElementById('resultsIcon').textContent = gradeInfo.icon;
+        document.getElementById('gradeBadge').textContent = gradeInfo.grade;
+        document.getElementById('gradeBadge').className = `grade-badge ${gradeInfo.color}`;
+        document.getElementById('gradeMessage').textContent = gradeInfo.message;
+        document.getElementById('gradeDescription').textContent = gradeInfo.description;
+
+        // Set score circle color based on score
+        const scoreCircle = document.getElementById('scoreCircle');
+        const scoreDeg = (lastResult.score / 100) * 360;
+        scoreCircle.style.setProperty('--score-deg', `${scoreDeg}deg`);
+
+        // Display stats
+        const wrongAnswers = lastResult.totalQuestions - lastResult.correctAnswers;
+        document.getElementById('correctAnswers').textContent = lastResult.correctAnswers;
+        document.getElementById('wrongAnswers').textContent = wrongAnswers;
+        document.getElementById('totalQuestions').textContent = lastResult.totalQuestions;
+        document.getElementById('subjectsCount').textContent = lastResult.subjects.split(', ').length;
+
+        // Display mistakes
+        function displayMistakes() {
+            const mistakesList = document.getElementById('mistakesList');
+            
+            if (!examQuestions || !userAnswers) {
+                mistakesList.innerHTML = `
+                    <div class="no-mistakes">
+                        <div class="no-mistakes-icon">🎯</div>
+                        <p>Mistake details not available</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const mistakes = [];
+            examQuestions.forEach((q, index) => {
+                if (userAnswers[index] !== q.answer) {
+                    mistakes.push({
+                        questionNum: index + 1,
+                        subject: q.subject,
+                        question: q.question,
+                        yourAnswer: userAnswers[index] !== null ? q.options[userAnswers[index]] : 'Not answered',
+                        correctAnswer: q.options[q.answer],
+                        yourAnswerLetter: userAnswers[index] !== null ? String.fromCharCode(65 + userAnswers[index]) : '-',
+                        correctAnswerLetter: String.fromCharCode(65 + q.answer)
+                    });
+                }
+            });
+
+            if (mistakes.length === 0) {
+                mistakesList.innerHTML = `
+                    <div class="no-mistakes">
+                        <div class="no-mistakes-icon">🏆</div>
+                        <p><strong>Perfect Score!</strong><br>You answered all questions correctly!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            mistakesList.innerHTML = mistakes.map(m => `
+                <div class="mistake-item">
+                    <div class="mistake-question-num">
+                        Question ${m.questionNum}
+                        <span class="mistake-subject">${m.subject}</span>
+                    </div>
+                    <div class="mistake-question">${m.question}</div>
+                    <div class="mistake-answers">
+                        <div class="answer-row">
+                            <span class="answer-label">Your Answer:</span>
+                            <span class="answer-value answer-wrong">Option ${m.yourAnswerLetter}</span>
+                        </div>
+                        <div class="answer-row">
+                            <span class="answer-label">Correct Answer:</span>
+                            <span class="answer-value answer-correct">Option ${m.correctAnswerLetter}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        displayMistakes();
+
+        // Save to exam history
+        function saveToHistory() {
+            let examHistory = JSON.parse(localStorage.getItem('examHistory')) || [];
+            
+            const historyEntry = {
+                id: Date.now(),
+                username: username,
+                subjects: lastResult.subjects,
+                totalQuestions: lastResult.totalQuestions,
+                correctAnswers: lastResult.correctAnswers,
+                score: lastResult.score,
+                grade: gradeInfo.grade,
+                date: lastResult.date,
+                timestamp: new Date().toISOString()
+            };
+
+            examHistory.unshift(historyEntry);
+            
+            // Keep only last 20 exams
+            if (examHistory.length > 20) {
+                examHistory = examHistory.slice(0, 20);
+            }
+
+            localStorage.setItem('examHistory', JSON.stringify(examHistory));
+        }
+
+        saveToHistory();
+
+        // Actions
+        function retakeExam() {
+            window.location.href = 'science-config.html';
+        }
+
+        function goHome() {
+            window.location.href = 'select-course.html';
+        }
+
+        function showLogoutModal() {
+            document.getElementById('logoutModal').classList.add('active');
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').classList.remove('active');
+        }
+
+        function confirmLogout() {
+            // Clear ALL user data including stats
+            const keysToRemove = [
+                'username',
+                'examConfig',
+                'examQuestions',
+                'userAnswers',
+                'lastExamResult',
+                'examHistory',
+                'userStats',
+                'selectedCourse'
+            ];
+            
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+            
+            window.location.href = 'index.html';
+        }
+
+        // Prevent back button
+        window.history.pushState(null, '', window.location.href);
+        window.onpopstate = function() {
+            window.history.pushState(null, '', window.location.href);
+        };
+    </script>
+</body>
+</html>

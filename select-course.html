@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PurposeTest - Select Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: fixed;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overscroll-behavior: none;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            padding-top: 90px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* User Info Box */
+        .user-info-box {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 8px 18px 8px 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .user-info-box:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .user-info-box:active {
+            transform: scale(0.98);
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.4);
+            flex-shrink: 0;
+        }
+
+        .user-name {
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: fixed;
+            top: 70px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            min-width: 280px;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .dropdown-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dropdown-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .dropdown-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .dropdown-user-info h3 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 3px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-user-info p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-title {
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* Menu Items */
+        .dropdown-menu-items {
+            padding: 8px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 6px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .menu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-item:active {
+            transform: scale(0.98);
+        }
+
+        .menu-item.logout {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .menu-item.logout:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .menu-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Overlay */
+        .dropdown-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 998;
+            display: none;
+        }
+
+        .dropdown-overlay.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-section h1 {
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .welcome-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 0 10px;
+        }
+
+        .course-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 35px 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .course-card:active {
+            transform: scale(0.98);
+        }
+
+        .course-icon {
+            font-size: 60px;
+            margin-bottom: 18px;
+        }
+
+        .course-card h2 {
+            color: white;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .course-subjects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .subject-tag {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .select-btn {
+            margin-top: 18px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .select-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: 15px;
+                padding-top: 80px;
+            }
+
+            .user-info-box {
+                top: 12px;
+                right: 12px;
+                padding: 6px 14px 6px 6px;
+                gap: 8px;
+            }
+
+            .user-avatar {
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
+            }
+
+            .user-name {
+                font-size: 14px;
+                max-width: 100px;
+            }
+
+            .dropdown-menu {
+                top: 60px;
+                right: 12px;
+                min-width: 260px;
+            }
+
+            .welcome-section h1 {
+                font-size: 26px;
+            }
+
+            .welcome-section p {
+                font-size: 14px;
+            }
+
+            .course-selection {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .course-card {
+                padding: 30px 20px;
+            }
+
+            .course-icon {
+                font-size: 55px;
+            }
+
+            .course-card h2 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .welcome-section h1 {
+                font-size: 22px;
+            }
+
+            .user-name {
+                max-width: 80px;
+            }
+
+            .dropdown-menu {
+                min-width: calc(100vw - 24px);
+                left: 12px;
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dropdown Overlay -->
+    <div class="dropdown-overlay" id="dropdownOverlay" onclick="closeDropdown()"></div>
+
+    <!-- User Info Box -->
+    <div class="user-info-box" id="userInfoBox" onclick="toggleDropdown()">
+        <div class="user-avatar" id="userAvatar">J</div>
+        <span class="user-name" id="displayName">John</span>
+    </div>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown-menu" id="dropdownMenu">
+        <div class="dropdown-header">
+            <div class="dropdown-user">
+                <div class="dropdown-avatar" id="dropdownAvatar">J</div>
+                <div class="dropdown-user-info">
+                    <h3 id="dropdownName">John</h3>
+                    <p>Student Account</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-title">Your Stats</div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalExams">0</div>
+                    <div class="stat-label">Total Exams</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="avgScore">0%</div>
+                    <div class="stat-label">Avg Score</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="bestScore">0%</div>
+                    <div class="stat-label">Best Score</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalTime">0h</div>
+                    <div class="stat-label">Study Time</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dropdown-menu-items">
+            <div class="menu-item" onclick="viewHistory()">
+                <span class="menu-icon">📊</span>
+                <span>Exam History</span>
+            </div>
+            <div class="menu-item" onclick="viewSettings()">
+                <span class="menu-icon">⚙️</span>
+                <span>Settings</span>
+            </div>
+            <div class="menu-item logout" onclick="logout()">
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="welcome-section">
+                <h1>Welcome, <span id="welcomeName">John</span>! 👋</h1>
+                <p>Select your course category to begin your JAMB CBT examination</p>
+            </div>
+
+            <div class="course-selection">
+                <div class="course-card" onclick="selectCourse('science')">
+                    <div class="course-icon">🔬</div>
+                    <h2>Science</h2>
+                    <p>Take your examination in science-related subjects</p>
+                    <div class="course-subjects">
+                        <span class="subject-tag">Physics</span>
+                        <span class="subject-tag">Chemistry</span>
+                        <span class="subject-tag">Biology</span>
+                        <span class="subject-tag">Mathematics</span>
+                    </div>
+                    <button class="select-btn" onclick="event.stopPropagation(); selectCourse('science')">Select Science</button>
+                </div>
+
+                <div class="course-card" onclick="selectCourse('arts')">
+                    <div class="course-icon">📚</div>
+                    <h2>Arts</h2>
+                    <p>Take your examination in arts and humanities subjects</p>
+                    <div class="course-subjects">
+                        <span class="subject-tag">Literature</span>
+                        <span class="subject-tag">Government</span>
+                        <span class="subject-tag">History</span>
+                        <span class="subject-tag">CRS</span>
+                    </div>
+                    <button class="select-btn" onclick="event.stopPropagation(); selectCourse('arts')">Select Arts</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const username = localStorage.getItem('username') || 'Student';
+        const firstLetter = username.charAt(0).toUpperCase();
+        
+        // Update all username displays
+        document.getElementById('userAvatar').textContent = firstLetter;
+        document.getElementById('displayName').textContent = username;
+        document.getElementById('welcomeName').textContent = username;
+        document.getElementById('dropdownAvatar').textContent = firstLetter;
+        document.getElementById('dropdownName').textContent = username;
+
+        // Load stats from localStorage
+        function loadStats() {
+            const stats = JSON.parse(localStorage.getItem('userStats')) || {
+                totalExams: 0,
+                avgScore: 0,
+                bestScore: 0,
+                totalTime: 0
+            };
+
+            document.getElementById('totalExams').textContent = stats.totalExams;
+            document.getElementById('avgScore').textContent = stats.avgScore + '%';
+            document.getElementById('bestScore').textContent = stats.bestScore + '%';
+            document.getElementById('totalTime').textContent = stats.totalTime + 'h';
+        }
+
+        loadStats();
+
+        // Dropdown Toggle
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdownMenu');
+            const overlay = document.getElementById('dropdownOverlay');
+            
+            dropdown.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function closeDropdown() {
+            document.getElementById('dropdownMenu').classList.remove('active');
+            document.getElementById('dropdownOverlay').classList.remove('active');
+        }
+
+        // Menu Actions
+        function viewHistory() {
+            closeDropdown();
+            alert('Exam history feature coming soon!');
+            // window.location.href = 'history.html';
+        }
+
+        function viewSettings() {
+            closeDropdown();
+            alert('Settings feature coming soon!');
+            // window.location.href = 'settings.html';
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear ALL user data including stats
+                const keysToRemove = [
+                    'username',
+                    'examConfig',
+                    'examQuestions',
+                    'userAnswers',
+                    'lastExamResult',
+                    'examHistory',
+                    'userStats',
+                    'selectedCourse'
+                ];
+                
+                keysToRemove.forEach(key => localStorage.removeItem(key));
+                
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Course Selection
+    function selectCourse(course) {
+        localStorage.setItem('selectedCourse', course);
+        
+        if (course === 'science') {
+            window.location.href = 'science-config.html';
+        } else if (course === 'arts') {
+            window.location.href = 'arts-config.html';
+        }
+    }
+
+        // Prevent overscroll
+        document.body.addEventListener('touchmove', function(e) {
+            if (e.target === document.body) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
