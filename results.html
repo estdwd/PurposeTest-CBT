@@ -74,8 +74,8 @@
             font-size: 16px;
         }
 
-        /* Score Card */
-        .score-card {
+        /* JAMB Score Card */
+        .jamb-score-card {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -86,42 +86,71 @@
             margin-bottom: 25px;
         }
 
-        .score-circle {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 25px;
-            border-radius: 50%;
-            background: conic-gradient(
-                #10b981 0deg,
-                #10b981 var(--score-deg),
-                rgba(255, 255, 255, 0.2) var(--score-deg)
-            );
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+        .jamb-logo {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            opacity: 0.9;
         }
 
-        .score-circle::before {
+        .score-display {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .score-display::before {
             content: '';
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
             position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10%, 10%); }
+        }
+
+        .score-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
         }
 
         .score-value {
+            color: white;
+            font-size: 72px;
+            font-weight: 700;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
-            color: white;
-            font-size: 48px;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            line-height: 1;
         }
 
-        .score-percent {
-            font-size: 24px;
+        .score-max {
+            font-size: 32px;
+            opacity: 0.8;
+        }
+
+        .percentage-display {
+            color: white;
+            font-size: 20px;
+            margin-top: 10px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
 
         .grade-badge {
@@ -152,6 +181,52 @@
             color: rgba(255, 255, 255, 0.85);
             font-size: 14px;
             line-height: 1.6;
+        }
+
+        /* Subject Breakdown */
+        .subject-breakdown {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .breakdown-title {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .subject-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .subject-name {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .subject-score {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .subject-max {
+            font-size: 14px;
+            opacity: 0.7;
         }
 
         /* Stats Grid */
@@ -464,18 +539,12 @@
                 font-size: 26px;
             }
 
-            .score-circle {
-                width: 150px;
-                height: 150px;
-            }
-
-            .score-circle::before {
-                width: 120px;
-                height: 120px;
-            }
-
             .score-value {
-                font-size: 36px;
+                font-size: 56px;
+            }
+
+            .score-max {
+                font-size: 24px;
             }
 
             .action-buttons {
@@ -492,12 +561,16 @@
                 padding: 15px;
             }
 
-            .score-card {
+            .jamb-score-card {
                 padding: 30px 20px;
             }
 
             .stats-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .score-value {
+                font-size: 48px;
             }
         }
     </style>
@@ -520,21 +593,33 @@
             <!-- Results Header -->
             <div class="results-header">
                 <div class="results-icon" id="resultsIcon">🎉</div>
-                <h1>Exam Results</h1>
+                <h1>JAMB CBT Results</h1>
                 <p id="studentName">Student</p>
             </div>
 
-            <!-- Score Card -->
-            <div class="score-card">
-                <div class="score-circle" id="scoreCircle">
+            <!-- JAMB Score Card -->
+            <div class="jamb-score-card">
+                <div class="jamb-logo">🇳🇬 JOINT ADMISSIONS AND MATRICULATION BOARD</div>
+                
+                <div class="score-display">
+                    <div class="score-label">Your JAMB Score</div>
                     <div class="score-value">
-                        <span id="scorePercent">0</span><span class="score-percent">%</span>
+                        <span id="jambScore">0</span><span class="score-max">/400</span>
                     </div>
+                    <div class="percentage-display" id="percentageDisplay">0%</div>
                 </div>
 
                 <div class="grade-badge" id="gradeBadge">A</div>
                 <div class="grade-message" id="gradeMessage">Excellent Performance!</div>
                 <div class="grade-description" id="gradeDescription">You've demonstrated outstanding knowledge.</div>
+            </div>
+
+            <!-- Subject Breakdown -->
+            <div class="subject-breakdown">
+                <div class="breakdown-title">📊 Subject Breakdown</div>
+                <div id="subjectBreakdownList">
+                    <!-- Will be populated by JavaScript -->
+                </div>
             </div>
 
             <!-- Stats Grid -->
@@ -603,34 +688,125 @@
 
         document.getElementById('studentName').textContent = username;
 
-        // Calculate grade
-        function calculateGrade(score) {
-            if (score >= 90) return { grade: 'A', message: 'Excellent Performance!', description: "You've demonstrated outstanding knowledge and understanding.", icon: '🎉', color: 'grade-A' };
-            if (score >= 80) return { grade: 'B', message: 'Very Good!', description: "You've shown strong grasp of the material.", icon: '👏', color: 'grade-B' };
-            if (score >= 70) return { grade: 'C', message: 'Good Job!', description: "You have a decent understanding. Keep practicing!", icon: '👍', color: 'grade-C' };
-            if (score >= 60) return { grade: 'D', message: 'Fair Performance', description: "You passed, but there's room for improvement.", icon: '📖', color: 'grade-D' };
-            return { grade: 'F', message: 'Needs Improvement', description: "Don't give up! Review the material and try again.", icon: '💪', color: 'grade-F' };
+        // JAMB Scoring System: Each question = 1 mark, max 100 per subject
+        function calculateJAMBScore() {
+            const subjectScores = {};
+            let totalJAMBScore = 0;
+
+            // Group questions by subject and calculate scores
+            examQuestions.forEach((q, index) => {
+                const subject = q.subject;
+                
+                if (!subjectScores[subject]) {
+                    subjectScores[subject] = {
+                        correct: 0,
+                        total: 0,
+                        score: 0
+                    };
+                }
+
+                subjectScores[subject].total++;
+                
+                if (userAnswers[index] === q.answer) {
+                    subjectScores[subject].correct++;
+                }
+            });
+
+            // Calculate JAMB score per subject (max 100 each)
+            Object.keys(subjectScores).forEach(subject => {
+                const data = subjectScores[subject];
+                // Score = (correct / total) * 100
+                data.score = Math.round((data.correct / data.total) * 100);
+                totalJAMBScore += data.score;
+            });
+
+            return {
+                totalScore: totalJAMBScore,
+                subjectScores: subjectScores,
+                maxScore: Object.keys(subjectScores).length * 100,
+                percentage: Math.round((totalJAMBScore / (Object.keys(subjectScores).length * 100)) * 100)
+            };
         }
 
-        const gradeInfo = calculateGrade(lastResult.score);
+        const jambResults = calculateJAMBScore();
 
-        // Display results
-        document.getElementById('scorePercent').textContent = lastResult.score;
+        // Calculate grade based on JAMB score
+        function calculateGrade(score, maxScore) {
+            const percentage = (score / maxScore) * 100;
+            
+            if (percentage >= 90) return { 
+                grade: 'A', 
+                message: 'Excellent Performance!', 
+                description: "Outstanding! You're well prepared for university admission.", 
+                icon: '🎉', 
+                color: 'grade-A' 
+            };
+            if (percentage >= 80) return { 
+                grade: 'B', 
+                message: 'Very Good!', 
+                description: "Great job! You have strong potential for admission.", 
+                icon: '👏', 
+                color: 'grade-B' 
+            };
+            if (percentage >= 70) return { 
+                grade: 'C', 
+                message: 'Good Job!', 
+                description: "Good effort! Keep practicing to improve your chances.", 
+                icon: '👍', 
+                color: 'grade-C' 
+            };
+            if (percentage >= 60) return { 
+                grade: 'D', 
+                message: 'Fair Performance', 
+                description: "You passed, but more preparation is needed.", 
+                icon: '📖', 
+                color: 'grade-D' 
+            };
+            return { 
+                grade: 'F', 
+                message: 'Needs Improvement', 
+                description: "Don't give up! Review and practice more.", 
+                icon: '💪', 
+                color: 'grade-F' 
+            };
+        }
+
+        const gradeInfo = calculateGrade(jambResults.totalScore, jambResults.maxScore);
+
+        // Display JAMB results
+        document.getElementById('jambScore').textContent = jambResults.totalScore;
+        document.getElementById('percentageDisplay').textContent = jambResults.percentage + '%';
         document.getElementById('resultsIcon').textContent = gradeInfo.icon;
         document.getElementById('gradeBadge').textContent = gradeInfo.grade;
         document.getElementById('gradeBadge').className = `grade-badge ${gradeInfo.color}`;
         document.getElementById('gradeMessage').textContent = gradeInfo.message;
         document.getElementById('gradeDescription').textContent = gradeInfo.description;
 
-        // Set score circle color based on score
-        const scoreCircle = document.getElementById('scoreCircle');
-        const scoreDeg = (lastResult.score / 100) * 360;
-        scoreCircle.style.setProperty('--score-deg', `${scoreDeg}deg`);
+        // Display subject breakdown
+        function displaySubjectBreakdown() {
+            const breakdownList = document.getElementById('subjectBreakdownList');
+            let html = '';
 
-        // Display stats
-        const wrongAnswers = lastResult.totalQuestions - lastResult.correctAnswers;
+            Object.keys(jambResults.subjectScores).forEach(subject => {
+                const data = jambResults.subjectScores[subject];
+                html += `
+                    <div class="subject-item">
+                        <span class="subject-name">${subject}</span>
+                        <span class="subject-score">
+                            ${data.score}<span class="subject-max">/100</span>
+                        </span>
+                    </div>
+                `;
+            });
+
+            breakdownList.innerHTML = html;
+        }
+
+        displaySubjectBreakdown();
+
+        // Display other stats
         document.getElementById('correctAnswers').textContent = lastResult.correctAnswers;
-        document.getElementById('wrongAnswers').textContent = wrongAnswers;
+        document.getElementById('wrongAnswers').textContent = lastResult.totalQuestions - lastResult.correctAnswers;
         document.getElementById('totalQuestions').textContent = lastResult.totalQuestions;
         document.getElementById('subjectsCount').textContent = lastResult.subjects.split(', ').length;
 
@@ -696,7 +872,7 @@
 
         displayMistakes();
 
-        // Save to exam history
+        // Save to exam history with JAMB score
         function saveToHistory() {
             let examHistory = JSON.parse(localStorage.getItem('examHistory')) || [];
             
@@ -706,15 +882,17 @@
                 subjects: lastResult.subjects,
                 totalQuestions: lastResult.totalQuestions,
                 correctAnswers: lastResult.correctAnswers,
-                score: lastResult.score,
+                jambScore: jambResults.totalScore,
+                maxScore: jambResults.maxScore,
+                percentage: jambResults.percentage,
                 grade: gradeInfo.grade,
+                subjectScores: jambResults.subjectScores,
                 date: lastResult.date,
                 timestamp: new Date().toISOString()
             };
 
             examHistory.unshift(historyEntry);
             
-            // Keep only last 20 exams
             if (examHistory.length > 20) {
                 examHistory = examHistory.slice(0, 20);
             }
@@ -724,9 +902,30 @@
 
         saveToHistory();
 
+        // Update stats with JAMB score
+        const stats = JSON.parse(localStorage.getItem('userStats')) || {
+            totalExams: 0,
+            avgScore: 0,
+            bestScore: 0,
+            totalTime: 0
+        };
+
+        stats.totalExams = stats.totalExams || 0;
+        stats.avgScore = Math.round(((stats.avgScore * stats.totalExams) + jambResults.percentage) / (stats.totalExams + 1));
+        stats.bestScore = Math.max(stats.bestScore || 0, jambResults.percentage);
+        
+        localStorage.setItem('userStats', JSON.stringify(stats));
+
         // Actions
         function retakeExam() {
-            window.location.href = 'science-config.html';
+            const courseType = localStorage.getItem('examConfig') ? 
+                JSON.parse(localStorage.getItem('examConfig')).courseType : null;
+            
+            if (courseType === 'arts') {
+                window.location.href = 'arts-config.html';
+            } else {
+                window.location.href = 'science-config.html';
+            }
         }
 
         function goHome() {
@@ -742,7 +941,6 @@
         }
 
         function confirmLogout() {
-            // Clear ALL user data including stats
             const keysToRemove = [
                 'username',
                 'examConfig',
@@ -755,7 +953,6 @@
             ];
             
             keysToRemove.forEach(key => localStorage.removeItem(key));
-            
             window.location.href = 'index.html';
         }
 
