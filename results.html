@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PurposeTest - Exam Results</title>
     <style>
         * {
@@ -11,28 +11,26 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html {
             width: 100%;
             height: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-            position: fixed;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            overscroll-behavior: none;
+            background-attachment: fixed;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow-x: hidden;
         }
 
         .page-wrapper {
             width: 100%;
             min-height: 100vh;
-            padding: 20px;
-            padding-top: 30px;
-            padding-bottom: 40px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            padding: 30px 20px 40px 20px;
+            position: relative;
         }
 
         .container {
@@ -78,6 +76,7 @@
         .jamb-score-card {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 40px 30px;
@@ -187,6 +186,7 @@
         .subject-breakdown {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 30px 25px;
@@ -240,6 +240,7 @@
         .stat-card {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 25px 20px;
@@ -271,6 +272,7 @@
         .mistakes-section {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 25px;
@@ -463,6 +465,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -476,6 +479,7 @@
         .modal-content {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 35px 30px;
             max-width: 400px;
@@ -590,14 +594,12 @@
 
     <div class="page-wrapper">
         <div class="container">
-            <!-- Results Header -->
             <div class="results-header">
                 <div class="results-icon" id="resultsIcon">🎉</div>
                 <h1>JAMB CBT Results</h1>
                 <p id="studentName">Student</p>
             </div>
 
-            <!-- JAMB Score Card -->
             <div class="jamb-score-card">
                 <div class="jamb-logo">🇳🇬 JOINT ADMISSIONS AND MATRICULATION BOARD</div>
                 
@@ -614,15 +616,11 @@
                 <div class="grade-description" id="gradeDescription">You've demonstrated outstanding knowledge.</div>
             </div>
 
-            <!-- Subject Breakdown -->
             <div class="subject-breakdown">
                 <div class="breakdown-title">📊 Subject Breakdown</div>
-                <div id="subjectBreakdownList">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div id="subjectBreakdownList"></div>
             </div>
 
-            <!-- Stats Grid -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">✅</div>
@@ -646,37 +644,23 @@
                 </div>
             </div>
 
-            <!-- Mistakes Section -->
             <div class="mistakes-section">
-                <div class="section-title">
-                    📋 Review Your Mistakes
-                </div>
-                <div class="mistakes-list" id="mistakesList">
-                    <!-- Mistakes will be populated here -->
-                </div>
+                <div class="section-title">📋 Review Your Mistakes</div>
+                <div class="mistakes-list" id="mistakesList"></div>
             </div>
 
-            <!-- Action Buttons -->
             <div class="action-buttons">
-                <button class="action-btn btn-retake" onclick="retakeExam()">
-                    🔄 Retake Exam
-                </button>
-                <button class="action-btn btn-home" onclick="goHome()">
-                    🏠 Back to Home
-                </button>
+                <button class="action-btn btn-retake" onclick="retakeExam()">🔄 Retake Exam</button>
+                <button class="action-btn btn-home" onclick="goHome()">🏠 Back to Home</button>
             </div>
 
-            <!-- Logout Section -->
             <div class="logout-section">
-                <button class="logout-btn" onclick="showLogoutModal()">
-                    🚪 Logout
-                </button>
+                <button class="logout-btn" onclick="showLogoutModal()">🚪 Logout</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Get data from localStorage
         const username = localStorage.getItem('username') || 'Student';
         const lastResult = JSON.parse(localStorage.getItem('lastExamResult'));
         const examQuestions = JSON.parse(localStorage.getItem('examQuestions'));
@@ -688,12 +672,10 @@
 
         document.getElementById('studentName').textContent = username;
 
-        // JAMB Scoring System: Each question = 1 mark, max 100 per subject
         function calculateJAMBScore() {
             const subjectScores = {};
             let totalJAMBScore = 0;
 
-            // Group questions by subject and calculate scores
             examQuestions.forEach((q, index) => {
                 const subject = q.subject;
                 
@@ -712,10 +694,8 @@
                 }
             });
 
-            // Calculate JAMB score per subject (max 100 each)
             Object.keys(subjectScores).forEach(subject => {
                 const data = subjectScores[subject];
-                // Score = (correct / total) * 100
                 data.score = Math.round((data.correct / data.total) * 100);
                 totalJAMBScore += data.score;
             });
@@ -730,50 +710,18 @@
 
         const jambResults = calculateJAMBScore();
 
-        // Calculate grade based on JAMB score
         function calculateGrade(score, maxScore) {
             const percentage = (score / maxScore) * 100;
             
-            if (percentage >= 90) return { 
-                grade: 'A', 
-                message: 'Excellent Performance!', 
-                description: "Outstanding! You're well prepared for university admission.", 
-                icon: '🎉', 
-                color: 'grade-A' 
-            };
-            if (percentage >= 80) return { 
-                grade: 'B', 
-                message: 'Very Good!', 
-                description: "Great job! You have strong potential for admission.", 
-                icon: '👏', 
-                color: 'grade-B' 
-            };
-            if (percentage >= 70) return { 
-                grade: 'C', 
-                message: 'Good Job!', 
-                description: "Good effort! Keep practicing to improve your chances.", 
-                icon: '👍', 
-                color: 'grade-C' 
-            };
-            if (percentage >= 60) return { 
-                grade: 'D', 
-                message: 'Fair Performance', 
-                description: "You passed, but more preparation is needed.", 
-                icon: '📖', 
-                color: 'grade-D' 
-            };
-            return { 
-                grade: 'F', 
-                message: 'Needs Improvement', 
-                description: "Don't give up! Review and practice more.", 
-                icon: '💪', 
-                color: 'grade-F' 
-            };
+            if (percentage >= 90) return { grade: 'A', message: 'Excellent Performance!', description: "Outstanding! You're well prepared for university admission.", icon: '🎉', color: 'grade-A' };
+            if (percentage >= 80) return { grade: 'B', message: 'Very Good!', description: "Great job! You have strong potential for admission.", icon: '👏', color: 'grade-B' };
+            if (percentage >= 70) return { grade: 'C', message: 'Good Job!', description: "Good effort! Keep practicing to improve your chances.", icon: '👍', color: 'grade-C' };
+            if (percentage >= 60) return { grade: 'D', message: 'Fair Performance', description: "You passed, but more preparation is needed.", icon: '📖', color: 'grade-D' };
+            return { grade: 'F', message: 'Needs Improvement', description: "Don't give up! Review and practice more.", icon: '💪', color: 'grade-F' };
         }
 
         const gradeInfo = calculateGrade(jambResults.totalScore, jambResults.maxScore);
 
-        // Display JAMB results
         document.getElementById('jambScore').textContent = jambResults.totalScore;
         document.getElementById('percentageDisplay').textContent = jambResults.percentage + '%';
         document.getElementById('resultsIcon').textContent = gradeInfo.icon;
@@ -782,7 +730,6 @@
         document.getElementById('gradeMessage').textContent = gradeInfo.message;
         document.getElementById('gradeDescription').textContent = gradeInfo.description;
 
-        // Display subject breakdown
         function displaySubjectBreakdown() {
             const breakdownList = document.getElementById('subjectBreakdownList');
             let html = '';
@@ -792,9 +739,7 @@
                 html += `
                     <div class="subject-item">
                         <span class="subject-name">${subject}</span>
-                        <span class="subject-score">
-                            ${data.score}<span class="subject-max">/100</span>
-                        </span>
+                        <span class="subject-score">${data.score}<span class="subject-max">/100</span></span>
                     </div>
                 `;
             });
@@ -804,23 +749,16 @@
 
         displaySubjectBreakdown();
 
-        // Display other stats
         document.getElementById('correctAnswers').textContent = lastResult.correctAnswers;
         document.getElementById('wrongAnswers').textContent = lastResult.totalQuestions - lastResult.correctAnswers;
         document.getElementById('totalQuestions').textContent = lastResult.totalQuestions;
         document.getElementById('subjectsCount').textContent = lastResult.subjects.split(', ').length;
 
-        // Display mistakes
         function displayMistakes() {
             const mistakesList = document.getElementById('mistakesList');
             
             if (!examQuestions || !userAnswers) {
-                mistakesList.innerHTML = `
-                    <div class="no-mistakes">
-                        <div class="no-mistakes-icon">🎯</div>
-                        <p>Mistake details not available</p>
-                    </div>
-                `;
+                mistakesList.innerHTML = `<div class="no-mistakes"><div class="no-mistakes-icon">🎯</div><p>Mistake details not available</p></div>`;
                 return;
             }
 
@@ -840,31 +778,17 @@
             });
 
             if (mistakes.length === 0) {
-                mistakesList.innerHTML = `
-                    <div class="no-mistakes">
-                        <div class="no-mistakes-icon">🏆</div>
-                        <p><strong>Perfect Score!</strong><br>You answered all questions correctly!</p>
-                    </div>
-                `;
+                mistakesList.innerHTML = `<div class="no-mistakes"><div class="no-mistakes-icon">🏆</div><p><strong>Perfect Score!</strong><br>You answered all questions correctly!</p></div>`;
                 return;
             }
 
             mistakesList.innerHTML = mistakes.map(m => `
                 <div class="mistake-item">
-                    <div class="mistake-question-num">
-                        Question ${m.questionNum}
-                        <span class="mistake-subject">${m.subject}</span>
-                    </div>
+                    <div class="mistake-question-num">Question ${m.questionNum}<span class="mistake-subject">${m.subject}</span></div>
                     <div class="mistake-question">${m.question}</div>
                     <div class="mistake-answers">
-                        <div class="answer-row">
-                            <span class="answer-label">Your Answer:</span>
-                            <span class="answer-value answer-wrong">Option ${m.yourAnswerLetter}</span>
-                        </div>
-                        <div class="answer-row">
-                            <span class="answer-label">Correct Answer:</span>
-                            <span class="answer-value answer-correct">Option ${m.correctAnswerLetter}</span>
-                        </div>
+                        <div class="answer-row"><span class="answer-label">Your Answer:</span><span class="answer-value answer-wrong">Option ${m.yourAnswerLetter}</span></div>
+                        <div class="answer-row"><span class="answer-label">Correct Answer:</span><span class="answer-value answer-correct">Option ${m.correctAnswerLetter}</span></div>
                     </div>
                 </div>
             `).join('');
@@ -872,7 +796,6 @@
 
         displayMistakes();
 
-        // Save to exam history with JAMB score
         function saveToHistory() {
             let examHistory = JSON.parse(localStorage.getItem('examHistory')) || [];
             
@@ -902,7 +825,6 @@
 
         saveToHistory();
 
-        // Update stats with JAMB score
         const stats = JSON.parse(localStorage.getItem('userStats')) || {
             totalExams: 0,
             avgScore: 0,
@@ -916,7 +838,6 @@
         
         localStorage.setItem('userStats', JSON.stringify(stats));
 
-        // Actions
         function retakeExam() {
             const courseType = localStorage.getItem('examConfig') ? 
                 JSON.parse(localStorage.getItem('examConfig')).courseType : null;
@@ -942,21 +863,14 @@
 
         function confirmLogout() {
             const keysToRemove = [
-                'username',
-                'examConfig',
-                'examQuestions',
-                'userAnswers',
-                'lastExamResult',
-                'examHistory',
-                'userStats',
-                'selectedCourse'
+                'username', 'examConfig', 'examQuestions', 'userAnswers',
+                'lastExamResult', 'examHistory', 'userStats', 'selectedCourse'
             ];
             
             keysToRemove.forEach(key => localStorage.removeItem(key));
             window.location.href = 'index.html';
         }
 
-        // Prevent back button
         window.history.pushState(null, '', window.location.href);
         window.onpopstate = function() {
             window.history.pushState(null, '', window.location.href);
